@@ -7,6 +7,7 @@ import Header from './src/components/Header';
 import Button from './src/components/Button';
 import Spinner from './src/components/Spinner';
 import LoginForm from './src/containers/LoginForm';
+import CardSection from './src/components/CardSection';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -38,9 +39,9 @@ export default class App extends React.Component {
     switch (this.state.loggedIn) {
       case true:
         return (
-          <Button onPress={() => firebase.auth().signOut()}>
-            Log Out
-          </Button>
+          <CardSection>
+            <Button onPress={() => firebase.auth().signOut()}>Logout</Button>
+          </CardSection>
         );
       case false:
         return <LoginForm />;
