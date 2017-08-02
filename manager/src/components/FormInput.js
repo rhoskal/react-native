@@ -1,12 +1,12 @@
 import React from 'react';
-import { TextInput, View, Text } from 'react-native';
+import { StyleSheet, TextInput, View, Text } from 'react-native';
 
 const FormInput = ((props) =>
   <View style={styles.form}>
     <Text style={styles.label}>{ props.label }</Text>
     <TextInput
-      secureTextEntry={props.secureTextEntry}
       placeholder={props.placeholder}
+      secureTextEntry={props.secureTextEntry}
       autoCorrect={false}
       autoCapitalize={'none'}
       keyboardType={props.keyboardType}
@@ -17,7 +17,7 @@ const FormInput = ((props) =>
   </View>
 );
 
-const styles = {
+const styles = StyleSheet.create({
   input: {
     color: '#000000',
     paddingRight: 5,
@@ -39,6 +39,6 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center'
   }
-};
+});
 
 export default FormInput;

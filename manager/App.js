@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import firebase from 'firebase';
 
-import LoginForm from './src/components/Card';
+import LoginForm from './src/components/LoginForm';
+import Header from './src/components/Header';
 
 import reducers from './src/reducers';
 
-class App extends Component {
+export default class App extends Component {
   componentWillMount() {
     firebase.initializeApp({
       apiKey: 'AIzaSyD9Ld2pIl4Kddm1z0QdscXAVE57yXdXw7I',
@@ -22,10 +24,11 @@ class App extends Component {
   render() {
     return (
       <Provider store={createStore(reducers)}>
-        <LoginForm />
+        <View>
+          <Header headerText='Manger' />
+          <LoginForm />
+        </View>
       </Provider>
     );
   }
 }
-
-export default App;

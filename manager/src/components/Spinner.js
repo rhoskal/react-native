@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 
 const Spinner = ((props) =>
   <View style={styles.spinner}>
@@ -7,12 +7,12 @@ const Spinner = ((props) =>
   </View>
 );
 
-const styles = {
+const styles = StyleSheet.create({
   spinner: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   }
-};
+});
 
 export default Spinner;
