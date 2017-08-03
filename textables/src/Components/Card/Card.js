@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-import styles from './Styles/Card';
+import styles from './CardStyles';
 
 const Card = ((props) =>
   <TouchableOpacity style={styles.row}>

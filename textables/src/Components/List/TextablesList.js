@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ListView, View } from 'react-native';
 
-import styles from './Styles/ListStyles';
+import styles from './ListStyles';
 import Card from '../Card/Card';
 
 import dataObjects from '../../Fixtures/Textables.json';

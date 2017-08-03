@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { Colors, Metrics } from '../../../Themes';
+import { Colors, Metrics } from '../../Themes';
 
 export default StyleSheet.create({
   boldLabel: {
@@ -18,11 +18,12 @@ export default StyleSheet.create({
   },
 
   row: {
-    //width: 'calc(Metrics.screenWidth / 2 - Metrics.doubleBaseMargin)',
-    width: 125,
+    width: Metrics.screenWidth / 2 - Metrics.doubleBaseMargin,
     height: 100,
     justifyContent: 'center',
     alignItems: 'center',
     margin: Metrics.baseMargin,
+    backgroundColor: Colors.frost,
+    borderRadius: 5,
   },
 });
