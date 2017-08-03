@@ -6,9 +6,15 @@ export default StyleSheet.create({
   container: {
     backgroundColor: Colors.frost,
   },
+
   name: {
     fontWeight: 'bold',
+    textAlign: 'center',
     color: Colors.text,
-    textAlign: 'center'
+  },
+
+  art: {
+    textAlign: 'center',
+    color: Colors.text,
   }
 });

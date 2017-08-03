@@ -1,13 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import styles from './Styles/Card';
 
 const Card = ((props) =>
-  <View style={styles.container}>
+  <TouchableOpacity style={styles.container}>
     <Text style={styles.name}>{ props.name }</Text>
-    <Text>{ props.art }</Text>
-  </View>
+    <Text style={styles.art}>{ props.art }</Text>
+  </TouchableOpacity>
 );
 
 export default Card;
