@@ -3,19 +3,12 @@ import { StyleSheet } from 'react-native';
 import { Colors } from '../../../Themes';
 
 export default StyleSheet.create({
+  container: {
+    backgroundColor: Colors.frost,
+  },
   name: {
     fontWeight: 'bold',
-    color: '#000000',
+    color: Colors.text,
     textAlign: 'center'
-  },
-  viewStyle: {
-    //borderBottomWidth: 1,
-    //padding: 5,
-    backgroundColor: '#CDF5EB',
-    //flexDirection: 'row',
-    borderColor: '#DDDDDD',
-    //position: 'relative'
-    // width: 100,
-    // height: 100
   }
 });
