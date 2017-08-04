@@ -6,7 +6,7 @@ import Metrics from './Metrics';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.yellow,
+    backgroundColor: Colors.gold,
   },
 
   body: {

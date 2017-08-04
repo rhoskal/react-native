@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { Colors, styles } from '../Themes';
+import icons from '../Fixtures/Icons.json';
 
-const Body = ((props) =>
-  <View style={styles.header}>
-    <Icon name={'ios-sunny'} size={65} color={Colors.white} />
-    <Text style={styles.temp}>{ props.temp }˚C</Text>
-  </View>
-);
+export default class Body extends Component {
+  //add touch w/ no feedback to temp--> if pressed change to fahrenheit and celcius
+  //this will require a state so change to class component -- use redux? 
+  constructor(props) {
+    super(props);
 
-export default Body;
+    this.state = {
+      units: 'Celcius',
+    };
+  }
+
+  render() {
+    return (
+      <View style={styles.header}>
+        <Icon name={icons[this.props.weather]} size={65} color={Colors.white} />
+        <Text style={styles.temp}>{ this.props.temp }˚C</Text>
+      </View>
+    );
+  }
+}
