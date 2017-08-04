@@ -4,9 +4,8 @@ const { width, height } = Dimensions.get('window');
 
 const metrics = {
   smallMargin: 5,
-  borderRadius: 5,
-  baseMargin: 10,
-  doubleBaseMargin: 20,
+  mediumMargin: 10,
+  largeMargin: 15,
   screenWidth: width < height ? width : height,
   screenHeight: width < height ? height : width,
 };

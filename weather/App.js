@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { StatusBar, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { View } from 'react-native';
 import { Location, Permissions } from 'expo';
 
-import { Colors, styles } from './src/Themes';
 import { fetchWeather } from './src/Components/WeatherAPI';
+import { Body, Header } from './src/Components';
+import styles from './src/Themes';
 
 export default class App extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ export default class App extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this._getLocationAsync();
   }
 
@@ -42,17 +42,8 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar hidden />
-
-        <View style={styles.header}>
-          <Icon name={'ios-sunny'} size={80} color={Colors.white} />
-          <Text style={styles.temp}>{ this.state.temp }˚C</Text>
-        </View>
-
-        <View style={styles.body}>
-          <Text style={styles.title}>Build a <Text style={{ color: 'red' }}>Fucking</Text> Weather App</Text>
-          <Text style={styles.subtitle}>Lets Make it Rain</Text>
-        </View>
+        <Header temp={this.state.temp} />
+        <Body />
       </View>
     );
   }

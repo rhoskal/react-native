@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import Colors from './Colors';
+import Metrics from './Metrics';
 
 export default StyleSheet.create({
   container: {
@@ -11,7 +12,7 @@ export default StyleSheet.create({
   body: {
     flex: 5,
     justifyContent: 'flex-end',
-    margin: 10,
+    margin: Metrics.mediumMargin,
   },
 
   header: {
@@ -19,6 +20,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
+    paddingTop: Metrics.mediumMargin,
   },
 
   temp: {
@@ -28,7 +30,7 @@ export default StyleSheet.create({
   },
 
   title: {
-    marginBottom: 5,
+    marginBottom: Metrics.smallMargin,
     fontSize: 75,
     fontFamily: 'HelveticaNeue-Bold',
     color: Colors.white,
