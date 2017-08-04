@@ -1,23 +1,36 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-import { Colors } from './src/Themes';
+import { Colors, styles } from './src/Themes';
 
 export default class App extends Component {
+  componentWillMount() {
+    this.getLocation();
+  }
+
+  getLocation() {
+    navigator.geolocation.getCurrentPosition(
+      (error) => alert(error.toString()),
+      { timeout: 10000 },
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+        <StatusBar hidden />
+
+        <View style={styles.header}>
+          <Icon name={'ios-sunny'} size={80} color={Colors.white} />
+          <Text style={styles.temp}>24˚C</Text>
+        </View>
+
+        <View style={styles.body}>
+          <Text style={styles.title}>Build a <Text style={{ color: 'red' }}>Fucking</Text> Weather App</Text>
+          <Text style={styles.subtitle}>Lets Make it Rain</Text>
+        </View>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.teal,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

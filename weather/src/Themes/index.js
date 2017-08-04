@@ -1,5 +1,5 @@
-import ApplicationStyles from './ApplicationStyles';
 import Colors from './Colors';
 import Metrics from './Metrics';
+import styles from './ApplicationStyles';
 
-export { ApplicationStyles, Colors, Metrics };
+export { Colors, Metrics, styles };
