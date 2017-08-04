@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "textables",
-    "description": "An empty new project",
+    "description": "Clone of Textables App by OTGApps",
     "slug": "textables",
     "privacy": "public",
     "sdkVersion": "19.0.0",
