@@ -35,18 +35,17 @@ export default StyleSheet.create({
     alignItems: 'center',
     margin: Metrics.baseMargin,
     backgroundColor: Colors.frost,
-    borderRadius: 5,
+    borderRadius: Metrics.borderRadius,
     elevation: 1,
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
   },
-  
+
   sectionHeader: {
     paddingTop: Metrics.doubleBaseMargin,
     width: Metrics.screenWidth,
-    alignSelf: 'center',
     margin: Metrics.baseMargin,
     backgroundColor: Colors.teal,
   },
