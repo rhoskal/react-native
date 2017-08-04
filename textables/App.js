@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
-import TextablesList from './src/Components/List/TextablesList';
-import { Colors } from './src/Themes';
+import TextablesList from './src/Components/TextablesList';
+import styles from './src/Themes/ApplicationStyles';
 
 export default class App extends Component {
   render() {
@@ -13,10 +13,3 @@ export default class App extends Component {
     );
   }
 }
-
-const styles=StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background,
-  },
-});

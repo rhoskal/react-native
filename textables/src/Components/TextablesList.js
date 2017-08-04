@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { ListView, View } from 'react-native';
+import { ListView, Text, View } from 'react-native';
 
-import styles from './ListStyles';
-import Card from '../Card/Card';
+import styles from '../Themes/ApplicationStyles';
+import Card from './Card';
 
-import dataObjects from '../../Fixtures/Textables.json';
+import dataObjects from '../Fixtures/Textables.json';
 
 export default class TextablesList extends Component {
   constructor(props) {
@@ -16,17 +16,21 @@ export default class TextablesList extends Component {
     const ds = new ListView.DataSource({ rowHasChanged, sectionHeaderHasChanged });
 
     this.state = {
-      dataSource: ds.cloneWithRows(dataObjects),
+      dataSource: ds.cloneWithRowsAndSections(dataObjects),
     };
   }
 
-  renderRow(rowData) {
+  renderRow(rowData, sectionID) {
     return <Card name={rowData.name} art={rowData.art} />;
   }
 
-  // renderHeader(rowData) {
-  //  return <View style={styles.sectionHeader}><Text style={styles.boldLabel}>{ sectionID }</Text></View>;
-  // }
+  renderHeader(rowData, sectionID) {
+    return (
+      <View style={styles.sectionHeader}>
+        <Text style={styles.boldLabel}>{ sectionID }</Text>
+      </View>
+    );
+  }
 
   render() {
     return (
@@ -34,9 +38,8 @@ export default class TextablesList extends Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}
-          //onLayout={this.onLayout}
           contentContainerStyle={styles.listContent}
-          // enableEmptySections  https://facebook.github.io/react-native/docs/listview.html
+          renderSectionHeader={this.renderHeader}
         />
       </View>
     );
