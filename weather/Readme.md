@@ -1,6 +1,6 @@
 # Links for project
-[github project](https://github.com/JustinNothling/react-native-fuckingWeather)
-[online class](http://cloneable.io/)
+- [github project](https://github.com/JustinNothling/react-native-fuckingWeather)
+- [online class](http://cloneable.io/)
 
 ## Built With
 - React Native
