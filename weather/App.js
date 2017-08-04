@@ -21,7 +21,7 @@ export default class App extends Component {
   }
 
   _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    const status = await Permissions.askAsync(Permissions.LOCATION);
 
     if (status !== 'granted') {
       this.setState({
