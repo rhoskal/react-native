@@ -1,12 +1,18 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import Highlight from 'react-native-highlight-words';
 
 import { styles } from '../Themes';
 
 const Body = ((props) =>
   <View style={styles.body}>
-    <Text style={styles.title}>Build a <Text style={{ color: 'red' }}>Fucking</Text> Weather App</Text>
-    <Text style={styles.subtitle}>Lets Make it Rain</Text>
+    <Highlight
+      style={styles.title}
+      highlightStyle={{ color: 'red' }}
+      searchWords={['Fucking']}
+      textToHighlight='Build a Fucking Weather App'
+    />
+    <Text style={styles.subtitle}>Rock that shit!</Text>
   </View>
 );
 

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Location, Permissions } from 'expo';
 
 import { fetchWeather } from './src/Components/WeatherAPI';
 import { Body, Header } from './src/Components';
-import styles from './src/Themes';
+import { styles } from './src/Themes';
 
 export default class App extends Component {
   constructor(props) {
@@ -33,7 +33,7 @@ export default class App extends Component {
 
     fetchWeather(location.coords.latitude, location.coords.longitude)
       .then(res => this.setState({
-        temp: res.temp,
+        temp: Math.round(res.temp),
         weather: res.weather
       })
     );
