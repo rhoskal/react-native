@@ -1,18 +1,41 @@
 import React, { Component } from 'react';
 import { StatusBar, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Location, Permissions } from 'expo';
 
 import { Colors, styles } from './src/Themes';
+import { fetchWeather } from './src/Components/WeatherAPI';
 
 export default class App extends Component {
-  componentWillMount() {
-    this.getLocation();
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      temp: 0,
+      weather: 'Unknown'
+    };
   }
 
-  getLocation() {
-    navigator.geolocation.getCurrentPosition(
-      (error) => alert(error.toString()),
-      { timeout: 10000 },
+  componentDidMount() {
+    this._getLocationAsync();
+  }
+
+  _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
+    }
+
+    const location = await Location.getCurrentPositionAsync({});
+
+    fetchWeather(location.coords.latitude, location.coords.longitude)
+      .then(res => this.setState({
+        temp: res.temp,
+        weather: res.weather
+      })
     );
   }
 
@@ -23,7 +46,7 @@ export default class App extends Component {
 
         <View style={styles.header}>
           <Icon name={'ios-sunny'} size={80} color={Colors.white} />
-          <Text style={styles.temp}>24˚C</Text>
+          <Text style={styles.temp}>{ this.state.temp }˚C</Text>
         </View>
 
         <View style={styles.body}>
