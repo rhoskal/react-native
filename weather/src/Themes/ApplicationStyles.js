@@ -11,13 +11,13 @@ export default StyleSheet.create({
   },
 
   body: {
-    flex: 5,
+    flex: 6,
     justifyContent: 'flex-end',
     margin: Metrics.mediumMargin,
   },
 
   header: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
