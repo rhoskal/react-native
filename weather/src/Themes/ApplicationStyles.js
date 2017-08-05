@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import Colors from './Colors';
+import Fonts from './Fonts';
 import Metrics from './Metrics';
 
 export default StyleSheet.create({
@@ -25,20 +26,20 @@ export default StyleSheet.create({
 
   temp: {
     fontSize: 45,
-    fontFamily: 'HelveticaNeue-Bold',
+    fontFamily: Fonts.bold,
     color: Colors.white,
   },
 
   title: {
     marginBottom: Metrics.smallMargin,
     fontSize: 75,
-    fontFamily: 'HelveticaNeue-Bold',
+    fontFamily: Fonts.bold,
     color: Colors.white,
   },
 
   subtitle: {
     fontSize: 16,
-    fontFamily: 'HelveticaNeue-Medium',
+    fontFamily: Fonts.medium,
     color: Colors.white,
   },
 });
