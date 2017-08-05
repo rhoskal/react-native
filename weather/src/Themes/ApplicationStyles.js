@@ -32,7 +32,7 @@ export default StyleSheet.create({
 
   title: {
     marginBottom: Metrics.smallMargin,
-    fontSize: 75,
+    fontSize: 65,
     fontFamily: Fonts.bold,
     color: Colors.white,
   },

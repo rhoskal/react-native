@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, View } from 'react-native';
+import { connect } from 'react-redux';
 import Highlight from 'react-native-highlight-words';
 
 import { styles } from '../Themes';
 import phrases from '../Fixtures/Phrases';
 
-const Body = ((props) =>
-  <View style={styles.body}>
-    <Highlight
-      style={styles.title}
-      highlightStyle={{ color: phrases[props.weather].color }}
-      searchWords={[phrases[props.weather].highlight]}
-      textToHighlight={phrases[props.weather].title}
-    />
-    <Text style={styles.subtitle}>{ phrases[props.weather].subtitle }</Text>
-  </View>
-);
+export default class Body extends Component {
+  componentWillMount() {
+    console.log(this.props);
+  }
 
-export default Body;
+  render() {
+    return (
+      <View style={styles.body}>
+        <Highlight
+          style={styles.title}
+          highlightStyle={{ color: 'red' }}
+          searchWords={["Satan's"]}
+          textToHighlight="It's hotter than Satan's balls."
+        />
+        <Text style={styles.subtitle}>'The end is near!'</Text>
+      </View>
+    );
+  }
+}

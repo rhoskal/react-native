@@ -1,10 +1,10 @@
 {
-  Default: 'md-time',
-	Clear: 'md-sunny',
-	Rain: 'md-rainy',
-	Thunderstorm: 'md-thunderstorm',
-	Clouds: 'md-cloudy',
-	Snow: 'md-snow',
-	Drizzle: 'md-umbrella',
-	Mist: 'md-partly-sunny'
+  'Default': 'ios-time-outline',
+	'Clear': 'ios-sunny-outline',
+	'Rain': 'ios-rainy-outline',
+	'Thunderstorm': 'ios-thunderstorm-outline',
+	'Clouds': 'ios-partly-sunny-outline',
+	'Snow': 'ios-snow-outline',
+	'Drizzle': 'ios-umbrella-outline',
+	'Mist': 'ios-umbrella-outline',
 }
