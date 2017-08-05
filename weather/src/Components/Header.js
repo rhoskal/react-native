@@ -43,7 +43,7 @@ class Header extends Component {
 
 const mapStateToProps = ({ data }) => {
   const { temp, weather } = data;
-console.log(this.state);
+
   return { temp, weather };
 };
 
