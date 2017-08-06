@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
+import { Location, Permissions } from 'expo';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Highlight from 'react-native-highlight-words';
 
@@ -11,10 +12,19 @@ import phrases from '../Fixtures/Phrases';
 
 class Screen extends Component {
   componentDidMount() {
-    this.props.fetchWeatherData(27.84, -82.28); //fix me to be dynamic!!!
+    this._getLocationAsync();
   }
 
-  render() { //add city underneath temperature
+  _getLocationAsync = async () => {
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+
+    if (status !== 'granted') console.log('Permission to access location was denied');
+
+    const location = await Location.getCurrentPositionAsync({ enableHighAccuracy: true });
+    this.props.fetchWeatherData(location.coords.latitude, location.coords.longitude);
+  }
+
+  render() {
     return (
       <View style={[styles.container, { backgroundColor: phrases[this.props.weather].background }]}>
         <View style={styles.header}>
