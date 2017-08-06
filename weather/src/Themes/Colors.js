@@ -7,6 +7,7 @@ const colors = {
   gold: '#FFD017',
   gunmetal: '#292E37',
   royalblue: '#4169E1',
+  sand: '#F5CBA7',
   silver: '#C0C0C0',
   teal: '#00CC99',
   white: '#FFFFFF',

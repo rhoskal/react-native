@@ -5,6 +5,11 @@ import {
   WEATHER_CHANGED,
 } from './Types';
 
+export const cityChanged = (text) => ({
+  type: CITY_CHANGED,
+  payload: text,
+});
+
 export const tempChanged = (text) => ({
   type: TEMP_CHANGED,
   payload: text,
@@ -19,6 +24,7 @@ export const fetchWeatherData = (lat, lon) => {
   const root = 'http://api.openweathermap.org/data/2.5/weather';
   const appid = 'appid=62328e4464216d93be8e8d5590566f18';
   const url = `${root}?${appid}&lat=${lat}&lon=${lon}&units=metric`;
+  console.log(url);
 
   return (dispatch) => {
     axios.get(url)

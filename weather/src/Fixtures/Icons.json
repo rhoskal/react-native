@@ -1,10 +1,12 @@
 {
-  'Default': 'ios-time-outline',
-	'Clear': 'ios-sunny-outline',
+  'Clear': 'ios-sunny-outline',
+  'Clouds': 'ios-partly-sunny-outline',
+  'Default': 'ios-timer-outline',
+  'Drizzle': 'ios-umbrella-outline',
+  'Extreme': 'ios-nuclear-outline',
+  'Haze': 'ios-flower-outline',
+  'Mist': 'ios-umbrella-outline',
 	'Rain': 'ios-rainy-outline',
-	'Thunderstorm': 'ios-thunderstorm-outline',
-	'Clouds': 'ios-partly-sunny-outline',
 	'Snow': 'ios-snow-outline',
-	'Drizzle': 'ios-umbrella-outline',
-	'Mist': 'ios-umbrella-outline',
+	'Thunderstorm': 'ios-thunderstorm-outline',
 }
