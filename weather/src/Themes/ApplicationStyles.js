@@ -24,6 +24,12 @@ export default StyleSheet.create({
     paddingTop: Metrics.mediumMargin,
   },
 
+  info: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+
   temp: {
     fontSize: 45,
     fontFamily: Fonts.bold,

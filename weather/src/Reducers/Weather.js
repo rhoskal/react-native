@@ -1,9 +1,11 @@
 import {
+  CITY_CHANGED,
   TEMP_CHANGED,
   WEATHER_CHANGED,
 } from '../Actions/Types';
 
 const INITIAL_STATE = {
+  city: 'Unknown',
   temp: 0,
   weather: 'Default',
 };
@@ -11,6 +13,8 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   console.log(action);
   switch (action.type) {
+    case CITY_CHANGED:
+      return { ...state, city: action.payload };
     case TEMP_CHANGED:
       return { ...state, temp: action.payload };
     case WEATHER_CHANGED:

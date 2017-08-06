@@ -29,7 +29,11 @@ class Screen extends Component {
       <View style={[styles.container, { backgroundColor: phrases[this.props.weather].background }]}>
         <View style={styles.header}>
           <Icon name={icons[this.props.weather]} size={100} color={Colors.white} />
-          <Text style={styles.temp}>{ this.props.temp }˚</Text>
+
+          <View style={styles.info}>
+            <Text style={styles.temp}>{ this.props.temp }˚</Text>
+            <Text style={styles.subtitle}>{ this.props.city }</Text>
+          </View>
         </View>
 
         <View style={styles.body}>
@@ -47,9 +51,9 @@ class Screen extends Component {
 }
 
 const mapStateToProps = ({ data }) => {
-  const { temp, weather } = data;
+  const { city, temp, weather } = data;
 
-  return { temp, weather };
+  return { city, temp, weather };
 };
 
 export default connect(mapStateToProps, { fetchWeatherData })(Screen);
