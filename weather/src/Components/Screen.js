@@ -16,7 +16,7 @@ class Screen extends Component {
 
   render() { //add city underneath temperature
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: phrases[this.props.weather].background }]}>
         <View style={styles.header}>
           <Icon name={icons[this.props.weather]} size={100} color={Colors.white} />
           <Text style={styles.temp}>{ this.props.temp }˚</Text>

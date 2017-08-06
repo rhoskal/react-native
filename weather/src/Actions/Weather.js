@@ -22,7 +22,6 @@ export const fetchWeatherData = (lat, lon) => {
   console.log(url);
 
   return (dispatch) => {
-    //dispatch({ type: 'FETCH_REQUEST' }) //display default screen?
     axios.get(url)
     .then(response =>
         Promise.all([

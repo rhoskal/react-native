@@ -26,9 +26,9 @@ const phrases = {
 	},
 
 	Thunderstorm: {
-		title: 'Shit. The sky is exploding.',
+		title: 'Shit. The sky is cracking.',
 		subtitle: 'Unplug those devices.',
-		highlight: 'exploding.',
+		highlight: 'cracking.',
 		color: Colors.gold,
 		background: Colors.black,
 	},
@@ -44,7 +44,7 @@ const phrases = {
 	Snow: {
 		title: 'Brain fucking freeze.',
 		subtitle: "You're not supposed to lick that.",
-		highlight: 'Fucking',
+		highlight: 'freeze.',
 		color: Colors.black,
 		background: Colors.teal,
 	},
@@ -53,7 +53,7 @@ const phrases = {
 		title: 'Meh... just stay in bed.',
 		subtitle: 'You can browse Pornhub.',
 		highlight: 'in bed.',
-		color: Colors.frost,
+		color: Colors.firebrick,
 		background: Colors.forestgreen,
 	},
 
@@ -61,8 +61,8 @@ const phrases = {
 		title: 'Did you say wet?',
 		subtitle: 'Enough to annoy you.',
 		highlight: 'wet?',
-		color: Colors.frost,
-		background: Colors.forestgreen
+		color: Colors.gold,
+		background: Colors.royalblue
 	},
 };
 
