@@ -1,54 +1,44 @@
 import React, { Component } from 'react';
-import { Animated, Image, cardPanResponder, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
+import Card from './components/Card';
+import Profiles from './fixtures/Profiles';
 
 export default class App extends Component {
-  componentWillMount() { //I think he's trying to create a constructor here...
-    this.pan = new Animated.ValueXY();
+  constructor(props) {
+    super(props);
 
-    this.cardPanResponder = cardPanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderMove: Animated.event([
-        null,
-        { dx: this.pan.x, dy: this.pan.y },
-      ]),
-      onPanResponderRelease: (e, gesture) => console.log('Released', gesture.moveY),
-    });
+    this.state = {
+      profileIndex: 0,
+    };
+  }
+
+  _nextCard = () => {
+    this.setState({ profileIndex: this.state.profileIndex + 1 });
   }
 
   render() {
-    const animatedStyle = {
-      transform: [
-        { translateX: this.pan.x },
-        { translateY: this.pan.y },
-      ],
-    };
+    const { profileIndex } = this.state;
 
     return (
-      <Animated.View style={[styles.card, animatedStyle]} {...this.cardPanResponder.panHandlers}>
-        <Image
-          style={{ flex: 1 }}
-          source={{ uri: 'https://graph.facebook.com/820165001428876/picture?height=500' }}
-        />
-
-        <View style={{ margin: 20 }}>
-          <Text style={{ fontSize: 20 }}>Candice, 28</Text>
-          <Text style={{ fontSize: 15, color: 'darkgrey' }}>Supermodel</Text>
-        </View>
-      </Animated.View>
+      <View style={styles.container}>
+        { Profiles.slice(profileIndex, profileIndex + 3).reverse().map((profile) => {
+          return (
+            <Card
+              key={profile.id}
+              profile={profile}
+              onSwipOff={this._nextCard}
+            />
+          );
+        })
+      }
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  card: {
+  container: {
     flex: 1,
-    backgroundColor: 'white',
-    margin: 10,
-    marginBottom: 100,
-    marginTop: 100,
-    borderWidth: 1,
-    borderColor: 'lightgrey',
-    borderRadius: 8,
-    overflow: 'hidden',
   },
 });
