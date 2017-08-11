@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import firebase from 'firebase';
 
 import Card from './src/components/card/Card';
-import Profiles from './src/fixtures/Profiles';
 
 export default class App extends Component {
   constructor(props) {
@@ -10,7 +10,30 @@ export default class App extends Component {
 
     this.state = {
       profileIndex: 0,
+      profiles: [],
     };
+  }
+
+  componentWillMount() {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyCTAk0eA2aXi_iST9ZXI738HYQPfXFjArs',
+      authDomain: 'tinder-clone-30f09.firebaseapp.com',
+      databaseURL: 'https://tinder-clone-30f09.firebaseio.com',
+      projectId: 'tinder-clone-30f09',
+      storageBucket: 'tinder-clone-30f09.appspot.com',
+      messagingSenderId: '628399878734'
+    });
+
+    firebase.database().ref().child('users').once('value', (snap) => {
+      const _profiles = [];
+
+      snap.forEach((profile) => {
+        const { name, bio, birthday, id } = profile.val();
+        _profiles.push({ name, bio, birthday, id });
+      });
+
+      this.setState({ profiles: _profiles });
+    });
   }
 
   _nextCard = () => {
@@ -23,7 +46,7 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         {
-          Profiles.slice(profileIndex, profileIndex + 3).reverse().map((profile) => {
+          this.state.profiles.slice(profileIndex, profileIndex + 3).reverse().map((profile) => {
             return (
               <Card
                 key={profile.id}
