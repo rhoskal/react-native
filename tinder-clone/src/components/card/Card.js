@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Animated, Image, PanResponder, StyleSheet, Text, View } from 'react-native';
+import moment from 'moment';
 
 import { Colors, Metrics } from '../../themes';
 
@@ -33,6 +34,11 @@ export default class Card extends Component {
   }
 
   render() {
+    const { bio, birthday, id, name } = this.props.profile;
+    const fbImage = `https://graph.facebook.com/${id}/picture?height=500`;
+    const profileBday = moment(birthday, 'MM/DD/YYYY');
+    const profileAge = moment().diff(profileBday, 'years');
+
     const rotateCard = this.pan.x.interpolate({
       inputRange: [-200, 0, 200],
       outputRange: ['10deg', '0deg', '-10deg'],
@@ -50,12 +56,12 @@ export default class Card extends Component {
       <Animated.View style={[styles.img, animatedStyle]} {...this._panResponder.panHandlers}>
         <Image
           style={{ flex: 1 }}
-          source={{ uri: 'https://graph.facebook.com/820165001428876/picture?height=500' }}
+          source={{ uri: fbImage }}
         />
 
         <View style={styles.info}>
-          <Text style={styles.name}>Amanda Elise Lee, 28</Text>
-          <Text style={styles.bio}>Supermodel</Text>
+          <Text style={styles.name}>{ name }, { profileAge }</Text>
+          <Text style={styles.bio}>{ bio }</Text>
         </View>
       </Animated.View>
     );
