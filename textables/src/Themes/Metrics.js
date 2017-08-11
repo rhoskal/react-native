@@ -1,6 +1,6 @@
-import { Dimensions } from 'react-native'
+import { Dimensions } from 'react-native';
 
-const { width, height } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window');
 
 const metrics = {
   smallMargin: 5,
@@ -9,6 +9,6 @@ const metrics = {
   doubleBaseMargin: 20,
   screenWidth: width < height ? width : height,
   screenHeight: width < height ? height : width,
-}
+};
 
-export default metrics
+export default metrics;
