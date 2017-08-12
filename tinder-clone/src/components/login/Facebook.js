@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from '@expo/vector-icons/FontAwesome';
 
 import { Colors } from '../../themes';
 
-const Facebook = (() =>
-  <TouchableHighlight style={styles.btn}>
-    <View style={styles.layout}>
-      <Icon name={'facebook-f'} size={20} color={'white'} />
-      <Text style={styles.text}>Login with Facebook</Text>
-    </View>
-  </TouchableHighlight>
-);
-
-export default Facebook;
+export default class Facebook extends Component {
+  render() {
+    return (
+      <TouchableHighlight style={styles.btn} onPress={this.props.onPress}>
+        <View style={styles.layout}>
+          <Icon name={'facebook-f'} size={20} color={'white'} />
+          <Text style={styles.text}>Login with Facebook</Text>
+        </View>
+      </TouchableHighlight>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   btn: {
