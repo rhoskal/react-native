@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import Expo from 'expo';
 import firebase from 'firebase';
 
@@ -11,12 +12,39 @@ export default class LoginScreen extends Component {
     header: null
   }
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showSpinner: true,
+    };
+  }
+
   componentDidMount() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.props.navigation.navigate('Home', { uid: user.uid });
+    firebase.auth().onAuthStateChanged(auth => {
+      if (auth) {
+        this.firebaseRef = firebase.database().ref('users');
+        this.firebaseRef.child(auth.uid).on('value', snap => {
+          const user = snap.val();
+
+          if (user != null) {
+            this.firebaseRef.child(auth.uid).off('value');
+            this._goHome(user);
+          }
+        });
+      } else {
+        this.setState({ showSpinner: false });
       }
     });
+  }
+
+  _goHome(user) {
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Home', params: { user } })]
+    });
+
+    this.props.navigation.dispatch(resetAction);
   }
 
   _authenticate(token) {
@@ -27,10 +55,11 @@ export default class LoginScreen extends Component {
   }
 
   _createUser = (uid, userData) => {
-    firebase.database().ref('users').child(uid).update(userData);
+    firebase.database().ref('users').child(uid).update({ ...userData, uid });
   }
 
   _logIn = async () => {
+    this.setState({ showSpinner: true });
     const APP_ID = '1298495360262445';
     const OPTIONS = {
       permissions: [
@@ -55,7 +84,10 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Facebook onPress={this._logIn.bind(this)} />
+        { this.state.showSpinner ?
+          <ActivityIndicator animating={this.state.showSpinner} size={'large'} /> :
+          <Facebook onPress={this._logIn.bind(this)} />
+        }
       </View>
     );
   }

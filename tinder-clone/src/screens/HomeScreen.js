@@ -5,6 +5,8 @@ import firebase from 'firebase';
 import GeoFire from 'geofire';
 
 import Card from '../components/card/Card';
+import Scroller from '../components/Scroller';
+import ProfileScreen from '../screens/ProfileScreen';
 
 export default class HomeScreen extends Component {
   static navigationOptions = {
@@ -21,7 +23,7 @@ export default class HomeScreen extends Component {
   }
 
   componentWillMount() {
-    const { uid } = this.props.navigation.state.params;
+    const { uid } = this.props.navigation.state.params.user;
 
     this._getCurrentLocation(uid);
     this._getProfilesWithinRadius(uid);
@@ -67,7 +69,7 @@ export default class HomeScreen extends Component {
     this.setState({ profileIndex: this.state.profileIndex + 1 });
   }
 
-  render() {
+  _cardStack = () => {
     const { profileIndex } = this.state;
 
     return (
@@ -84,6 +86,12 @@ export default class HomeScreen extends Component {
           })
         }
       </View>
+    );
+  }
+
+  render() {
+    return (
+      <Scroller screens={[this._cardStack(), <ProfileScreen user={this.props.navigation.state.params.user} />]} />
     );
   }
 }
