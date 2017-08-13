@@ -6,7 +6,7 @@ import GeoFire from 'geofire';
 
 import Card from '../components/card/Card';
 import Scroller from '../components/Scroller';
-import ProfileScreen from '../screens/ProfileScreen';
+import { MatchScreen, ProfileScreen } from '../screens';
 import filter from '../modules/Filter';
 
 export default class HomeScreen extends Component {
@@ -59,6 +59,7 @@ export default class HomeScreen extends Component {
   _getProfilesWithinRadius = async (uid, distance) => {
     const geoRef = new GeoFire(firebase.database().ref('geoData'));
     const userLocation = await geoRef.get(uid);
+    const swipedProfiles = await this._getSwiped(uid);
     const geoQuery = geoRef.query({
       center: userLocation,
       radius: distance, //km
@@ -68,7 +69,7 @@ export default class HomeScreen extends Component {
       //console.log(`${uid} at ${location} is ${distance} km from the center`);
       const user = await this._getUser(uid);
       const profiles = [...this.state.profiles, user.val()];
-      const filtered = filter(profiles, this.state.user);
+      const filtered = filter(profiles, this.state.user, swipedProfiles);
 
       this.setState({ profiles: filtered });
     });
@@ -97,6 +98,12 @@ export default class HomeScreen extends Component {
     firebase.database().ref('relationships').update(relationUpdate);
   }
 
+  _getSwiped = (uid) => {
+    return firebase.database().ref('relationships').child(uid).child('liked')
+      .once('value')
+      .then(snap => snap.val() || {});
+  }
+
   _cardStack = () => {
     const { profileIndex } = this.state;
 
@@ -105,11 +112,7 @@ export default class HomeScreen extends Component {
         {
           this.state.profiles.slice(profileIndex, profileIndex + 3).reverse().map((profile) => {
             return (
-              <Card
-                key={profile.id}
-                profile={profile}
-                onSwipOff={this._nextCard}
-              />
+              <Card key={profile.id} profile={profile} onSwipOff={this._nextCard} />
             );
           })
         }
@@ -119,7 +122,13 @@ export default class HomeScreen extends Component {
 
   render() {
     return (
-      <Scroller screens={[this._cardStack(), <ProfileScreen user={this.state.user} />]} />
+      <Scroller
+        screens={[
+          this._cardStack(),
+          <ProfileScreen user={this.state.user} />,
+          <MatchScreen />
+        ]}
+      />
     );
   }
 }
