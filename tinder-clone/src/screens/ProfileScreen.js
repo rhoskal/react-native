@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Switch, Text, View } from 'react-native';
 import Slider from 'react-native-multislider';
+import firebase from 'firebase';
 
 import { Colors } from '../themes';
 import CircleImage from '../components/CircleImage';
@@ -10,9 +11,16 @@ export default class ProfileScreen extends Component {
     super(props);
 
     this.state = {
-      ageRangeValues: [18, 30],
-      distanceValue: [5],
+      ageRangeValues: this.props.user.ageRange,
+      distanceValue: [this.props.user.distance],
+      showMen: this.props.user.showMen,
+      showWomen: this.props.user.showWomen,
     };
+  }
+
+  _updateUser = (key, value) => {
+    const { uid } = this.props.user;
+    firebase.database().ref('users').child(uid).update({ [key]: value });
   }
 
   render() {
@@ -37,6 +45,7 @@ export default class ProfileScreen extends Component {
           max={30}
           values={this.state.distanceValue}
           onValuesChange={val => this.setState({ distanceValue: val })}
+          onValuesChangeFinish={val => this._updateUser('distance', val[0])}
         />
 
         <View style={styles.label}>
@@ -49,7 +58,30 @@ export default class ProfileScreen extends Component {
           max={70}
           values={this.state.ageRangeValues}
           onValuesChange={val => this.setState({ ageRangeValues: val })}
+          onValuesChangeFinish={val => this._updateUser('ageRange', val)}
         />
+
+        <View style={styles.sex}>
+          <Text>Show Men</Text>
+          <Switch
+            value={this.state.showMen}
+            onValueChange={val => {
+              this.setState({ showMen: val });
+              this._updateUser('showMen', val);
+            }}
+          />
+        </View>
+
+        <View style={styles.sex}>
+          <Text>Show Women</Text>
+          <Switch
+            value={this.state.showWomen}
+            onValueChange={val => {
+              this.setState({ showWomen: val });
+              this._updateUser('showWomen', val);
+            }}
+          />
+        </View>
       </View>
     );
   }
@@ -82,5 +114,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginLeft: 20,
     marginRight: 20,
+  },
+
+  sex: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    margin: 20,
   },
 });

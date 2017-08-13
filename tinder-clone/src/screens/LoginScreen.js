@@ -55,7 +55,15 @@ export default class LoginScreen extends Component {
   }
 
   _createUser = (uid, userData) => {
-    firebase.database().ref('users').child(uid).update({ ...userData, uid });
+    const defaults = {
+      uid,
+      distance: 20,
+      ageRange: [18, 35],
+      showMen: false,
+      showWomen: false,
+    };
+
+    firebase.database().ref('users').child(uid).update({ ...userData, ...defaults });
   }
 
   _logIn = async () => {
