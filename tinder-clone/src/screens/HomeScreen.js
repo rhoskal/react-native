@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { Location, Permissions } from 'expo';
 import firebase from 'firebase';
+import GeoFire from 'geofire';
 
 import Card from '../components/card/Card';
 
@@ -19,17 +21,46 @@ export default class HomeScreen extends Component {
   }
 
   componentWillMount() {
-    firebase.database().ref().child('users').once('value', (snap) => {
-      const _profiles = [];
+    const { uid } = this.props.navigation.state.params;
 
-      snap.forEach((profile) => {
-        const { name, bio, birthday, id } = profile.val();
-        console.log(name);
-        _profiles.push({ name, bio, birthday, id });
-      });
+    this._getCurrentLocation(uid);
+    this._getProfilesWithinRadius(uid);
+  }
 
-      this.setState({ profiles: _profiles });
+  _getCurrentLocation = async (uid) => {
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      console.log('Permission Denied');
+    } else {
+      //const location = await Location.getCurrentPositionAsync({ enableHighAccuracy: true });
+      //const { latitude, longitude } = location.coords;
+      const latitude = 37.39239;
+      const longitude = -122.09072;
+
+      const geoRef = new GeoFire(firebase.database().ref('geoData'));
+      geoRef.set(uid, [latitude, longitude]);
+    }
+  }
+
+  _getProfilesWithinRadius = async (uid) => {
+    const geoRef = new GeoFire(firebase.database().ref('geoData'));
+    const userLocation = await geoRef.get(uid);
+    const geoQuery = geoRef.query({
+      center: userLocation,
+      radius: 10, //km
     });
+
+    geoQuery.on('key_entered', async (uid, location, distance) => {
+      //console.log(`${uid} at ${location} is ${distance} km from the center`);
+      const user = await this._getUser(uid);
+      const profiles = [...this.state.profiles, user.val()];
+
+      this.setState({ profiles });
+    });
+  }
+
+  _getUser = (uid) => {
+    return firebase.database().ref('users').child(uid).once('value');
   }
 
   _nextCard = () => {
