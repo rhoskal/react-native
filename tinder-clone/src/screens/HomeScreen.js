@@ -7,6 +7,7 @@ import GeoFire from 'geofire';
 import Card from '../components/card/Card';
 import Scroller from '../components/Scroller';
 import ProfileScreen from '../screens/ProfileScreen';
+import filter from '../modules/Filter';
 
 export default class HomeScreen extends Component {
   static navigationOptions = {
@@ -19,14 +20,25 @@ export default class HomeScreen extends Component {
     this.state = {
       profileIndex: 0,
       profiles: [],
+      user: this.props.navigation.state.params.user,
     };
   }
 
   componentWillMount() {
-    const { uid } = this.props.navigation.state.params.user;
+    const { uid } = this.state.user;
 
     this._getCurrentLocation(uid);
-    this._getProfilesWithinRadius(uid);
+    firebase.database().ref('users').child(uid).on('value', snap => {
+      const user = snap.val();
+
+      this.setState({
+        profileIndex: 0,
+        profiles: [],
+        user,
+      });
+
+      this._getProfilesWithinRadius(user.uid, user.distance);
+    });
   }
 
   _getCurrentLocation = async (uid) => {
@@ -44,20 +56,21 @@ export default class HomeScreen extends Component {
     }
   }
 
-  _getProfilesWithinRadius = async (uid) => {
+  _getProfilesWithinRadius = async (uid, distance) => {
     const geoRef = new GeoFire(firebase.database().ref('geoData'));
     const userLocation = await geoRef.get(uid);
     const geoQuery = geoRef.query({
       center: userLocation,
-      radius: 10, //km
+      radius: distance, //km
     });
 
     geoQuery.on('key_entered', async (uid, location, distance) => {
       //console.log(`${uid} at ${location} is ${distance} km from the center`);
       const user = await this._getUser(uid);
       const profiles = [...this.state.profiles, user.val()];
+      const filtered = filter(profiles, this.state.user);
 
-      this.setState({ profiles });
+      this.setState({ profiles: filtered });
     });
   }
 
