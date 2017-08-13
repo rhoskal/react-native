@@ -78,8 +78,23 @@ export default class HomeScreen extends Component {
     return firebase.database().ref('users').child(uid).once('value');
   }
 
-  _nextCard = () => {
+  _nextCard = (swipedRight, profileUID) => {
+    const userUID = this.state.user.uid;
     this.setState({ profileIndex: this.state.profileIndex + 1 });
+
+    if (swipedRight) {
+      this._relate(userUID, profileUID, true);
+    } else {
+      this._relate(userUID, profileUID, false);
+    }
+  }
+
+  _relate = (userUid, profileUid, status) => {
+    const relationUpdate = {};
+    relationUpdate[`${userUid}/liked/${profileUid}`] = status;
+    relationUpdate[`${profileUid}/likedBack/${userUid}`] = status;
+
+    firebase.database().ref('relationships').update(relationUpdate);
   }
 
   _cardStack = () => {
@@ -104,7 +119,7 @@ export default class HomeScreen extends Component {
 
   render() {
     return (
-      <Scroller screens={[this._cardStack(), <ProfileScreen user={this.props.navigation.state.params.user} />]} />
+      <Scroller screens={[this._cardStack(), <ProfileScreen user={this.state.user} />]} />
     );
   }
 }

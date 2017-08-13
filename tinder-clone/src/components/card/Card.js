@@ -17,12 +17,13 @@ export default class Card extends Component {
       onPanResponderRelease: (evt, { dx }) => {
         const absDx = Math.abs(dx);
         const direction = absDx / dx;
+        const swipedRight = direction > 0;
 
         if (absDx > 120) {
           Animated.decay(this._pan, {
             velocity: { x: 3 * direction, y: 0 },
             decelration: 0.995,
-          }).start(this.props.onSwipOff);
+          }).start(() => this.props.onSwipOff(swipedRight, this.props.profile.uid));
         } else {
           Animated.spring(this._pan, {
             toValue: { x: 0, y: 0 },
