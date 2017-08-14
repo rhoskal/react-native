@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation';
 import firebase from 'firebase';
 
-import { HomeScreen, LoginScreen } from '../screens';
+import { ChatScreen, HomeScreen, LoginScreen } from '../screens';
 
 const RootStackNavigator = StackNavigator(
   {
     Home: { screen: HomeScreen },
     Login: { screen: LoginScreen },
+    Chat: { screen: ChatScreen },
   },
   {
     initialRouteName: 'Login',

@@ -126,7 +126,7 @@ export default class HomeScreen extends Component {
         screens={[
           this._cardStack(),
           <ProfileScreen user={this.state.user} />,
-          <MatchScreen />
+          <MatchScreen navigation={this.props.navigation} user={this.state.user} />
         ]}
       />
     );
@@ -136,5 +136,6 @@ export default class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
 });

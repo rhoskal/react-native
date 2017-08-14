@@ -8,7 +8,8 @@ export default class Scroller extends Component {
     this._pan = new Animated.Value(0);
 
     this._scrollResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponder: () => false,
+      onMoveShouldSetPanResponder: (e, { dx, dy }) => Math.abs(dx) > Math.abs(dy),
       onPanResponderGrant: () => {
         this._pan.setOffset(this._pan._value);
         this._pan.setValue(0);
@@ -17,34 +18,37 @@ export default class Scroller extends Component {
         null,
         { dx: this._pan },
       ]),
-      onPanResponderRelease: (e, { vx }) => {
-        this._pan.flattenOffset();
-        let move = Math.round(this._pan._value / Metrics.screenWidth) * Metrics.screenWidth;
-
-        if (Math.abs(vx) > 0.25) {
-          const direction = vx / Math.abs(vx);
-          let scrollPos = 0;
-
-          if (direction > 0) {
-            scrollPos = Math.ceil(this._pan._value / Metrics.screenWidth);
-          } else if (direction < 0) {
-            scrollPos = Math.floor(this._pan._value / Metrics.screenWidth);
-          }
-
-          move = scrollPos * Metrics.screenWidth;
-        }
-
-        const minScroll = (this.props.screens.length - 1) * -Metrics.screenWidth;
-
-        Animated.spring(this._pan, {
-          toValue: this.clamp(move, minScroll, 0),
-          bounciness: 0,
-        }).start();
-      },
+      onPanResponderReject: this._handlePanResponderEnd,
+      onPanResponderRelease: this._handlePanResponderEnd,
     });
   }
 
-  clamp = (num, min, max) => {
+  _handlePanResponderEnd = (e, { vx }) => {
+    this._pan.flattenOffset();
+    let move = Math.round(this._pan._value / Metrics.screenWidth) * Metrics.screenWidth;
+
+    if (Math.abs(vx) > 0.25) {
+      const direction = vx / Math.abs(vx);
+      let scrollPos = 0;
+
+      if (direction > 0) {
+        scrollPos = Math.ceil(this._pan._value / Metrics.screenWidth);
+      } else if (direction < 0) {
+        scrollPos = Math.floor(this._pan._value / Metrics.screenWidth);
+      }
+
+      move = scrollPos * Metrics.screenWidth;
+    }
+
+    const minScroll = (this.props.screens.length - 1) * -Metrics.screenWidth;
+
+    Animated.spring(this._pan, {
+      toValue: this._clamp(move, minScroll, 0),
+      bounciness: 0,
+    }).start();
+  }
+
+  _clamp = (num, min, max) => {
     if (num <= min) {
       return min;
     } else if (num >= max) {
@@ -76,5 +80,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
+    backgroundColor: 'white',
   },
 });
