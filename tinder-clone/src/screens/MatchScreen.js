@@ -56,7 +56,7 @@ export default class MatchScreen extends Component {
     const bio = (work && work[0] && work[0].position) ? work[0].position.name : null;
 
     return (
-      <TouchableHighlight onPress={() => this.props.navigation.navigate('Chat')}>
+      <TouchableHighlight onPress={() => this.props.navigation.navigate('Chat', { user: this.props.user, profile: rowData })}>
         <View style={styles.row}>
           <CircleImage size={70} facebookID={id} />
           <View style={styles.info}>

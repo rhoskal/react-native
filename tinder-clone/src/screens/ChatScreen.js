@@ -1,73 +1,53 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
+import firebase from 'firebase';
 
 export default class ChatScreen extends Component {
   static navigationOptions = {
     header: null
   }
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      messages: [],
+      user: this.props.navigation.state.params.user,
+      profile: this.props.navigation.state.params.profile,
+    };
+  }
+
+  componentWillMount() {
+    const { user, profile } = this.state;
+    this.chatID = user.uid > profile.uid ? `${user.uid}-${profile.uid}` : `${profile.uid}-${user.uid}`;
+    this._watchChat();
+  }
+
+  _watchChat = () => {
+    firebase.database().ref('messages').child(this.chatID).on('value', snap => {
+      const messages = [];
+      snap.forEach(message => {
+        messages.push(message.val());
+      });
+      messages.reverse();
+      this.setState({ messages });
+    });
+  }
+
+  _onSend = (message) => {
+    firebase.database().ref('messages').child(this.chatID)
+      .push({ ...message[0], createdAt: new Date().getTime() });
+  }
+
   render() {
+    const avatar = `https://graph.facebook.com/${this.state.user.id}/picture?height=80`;
+
     return (
       <GiftedChat
-        messages={demoMessages}
-        user={{ _id: '123test' }}
+        messages={this.state.messages}
+        user={{ _id: this.state.user.uid, avatar }}
+        onSend={this._onSend}
       />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-});
-
-const demoMessages = [
-  {
-    text: 'Hell yeah! #winning',
-    createdAt: 1489091435797,
-    _id: '10046a73-59c9-4a2a-93fe-aohgpwerg034',
-    user: {
-      _id: '123test',
-      avatar: 'https://graph.facebook.com/09615623515/picture?height=80',
-    },
-  },
-  {
-    text: 'Sure Penguin Man!',
-    createdAt: 1489091437797,
-    _id: '6f36d879-43de-4853-bcf4-4810dcad1e9a',
-    user: {
-      _id: '-KcEv8h7GrwAvAf4VTnW',
-      avatar: 'https://graph.facebook.com/259389830744794/picture?height=80',
-    },
-  },
-  {
-    text: 'Coffee?',
-    createdAt: 1489091435797,
-    _id: '10046a73-59c9-4a2a-93fe-edaf8da815d2',
-    user: {
-      _id: '123test',
-      avatar: 'https://graph.facebook.com/09615623515/picture?height=80',
-    },
-  },
-  {
-    text: 'My hero ❤️️',
-    createdAt: 1489091433016,
-    _id: '0d053339-227c-44d2-a030-4c12e4087d2d',
-    user: {
-      _id: '-KcEv8h7GrwAvAf4VTnW',
-      avatar: 'https://graph.facebook.com/259389830744794/picture?height=80',
-    },
-  },
-  {
-    text: 'I once saved a baby penguin 🐧 from drowning',
-    createdAt: 1489091430713,
-    _id: '33dafbde-5be7-4268-ae55-f474e42368b5',
-    user: {
-      _id: '123test',
-      avatar: 'https://graph.facebook.com/09615623515/picture?height=80',
-    },
-  },
-]
