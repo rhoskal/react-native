@@ -3,13 +3,13 @@ import { Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 
-import { HomeScreen, LinksScreen, SettingsScreen } from '../screens';
+import { CreateScreen, HomeScreen, SettingsScreen } from '../screens';
 import { Colors } from '../constants';
 
 export default TabNavigator(
   {
     Home: { screen: HomeScreen },
-    Links: { screen: LinksScreen },
+    Create: { screen: CreateScreen },
     Settings: { screen: SettingsScreen },
   },
   {
@@ -25,7 +25,7 @@ export default TabNavigator(
               ? `ios-home${focused ? '' : '-outline'}`
               : 'md-home';
             break;
-          case 'Links':
+          case 'Create':
             iconName = Platform.OS === 'ios'
               ? `ios-link${focused ? '' : '-outline'}`
               : 'md-link';

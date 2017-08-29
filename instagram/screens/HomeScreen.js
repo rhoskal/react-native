@@ -1,13 +1,22 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, View } from 'react-native';
 
-import { MonoText } from '../components';
+import { MonoText, Post } from '../components';
 
 export default class HomeScreen extends React.Component {
+  _onPress() {
+    //this.props.navigation.navigate('Create');
+    console.log('pressed');
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <MonoText>Instagram Clone</MonoText>
+        <ScrollView>
+          <Post />
+        </ScrollView>
+
+        <Button onPress={this._onPress} title="Create Post" />
       </View>
     );
   }

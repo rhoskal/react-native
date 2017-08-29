@@ -1,3 +1,4 @@
-import MonoText from './StyledText';
+import MonoText from './MonoText';
+import Post from './Post'
 
-export { MonoText };
+export { MonoText, Post };
