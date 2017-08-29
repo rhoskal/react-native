@@ -1,18 +1,25 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 
-const Post = () => (
-  <View style={styles.container}>
-    <Text>Test</Text>
-  </View>
-);
+import { MonoText } from '../components';
+
+class Post extends React.PureComponent {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Image source={{ uri: this.props.post.imageUrl }} style={styles.container} />
+        <MonoText>{this.props.post.description}</MonoText>
+      </View>
+    );
+  }
+}
 
 export default Post;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 150,
+    height: 150,
   },
 });

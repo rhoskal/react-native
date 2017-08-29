@@ -1,30 +1,39 @@
 import React from 'react';
-import { Button, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
-import { MonoText, Post } from '../components';
+import { Post } from '../components';
 
-export default class HomeScreen extends React.Component {
-  _onPress() {
-    //this.props.navigation.navigate('Create');
-    console.log('pressed');
+const allPostsQuery = gql`
+  query {
+    allPosts(orderBy: createdAt_DESC) {
+      id
+      imageUrl
+      description
+    }
   }
+`;
 
+class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <ScrollView>
           <Post />
         </ScrollView>
-
-        <Button onPress={this._onPress} title="Create Post" />
       </View>
     );
   }
 }
 
+export default graphql(allPostsQuery, { name: 'allPostsQuery' })(HomeScreen);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

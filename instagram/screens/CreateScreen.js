@@ -21,7 +21,7 @@ export default class CreateScreen extends React.Component {
 
   _renderImage = () => {
     if (this.state.imageUrl) {
-      return <Image source={{ uri: this.state.imageUrl }} style={{ width: 200, height: 200 }} />;
+      return <Image source={{ uri: this.state.imageUrl }} style={styles.image} />;
     }
 
     return null;
@@ -49,5 +49,9 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: '#fff',
+  },
+  image: {
+    width: 200,
+    height: 200,
   },
 });

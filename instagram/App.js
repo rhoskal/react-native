@@ -2,12 +2,23 @@ import React from 'react';
 import { Platform, StatusBar, View } from 'react-native';
 import { AppLoading, Asset, Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
+import ApolloClient, { createNetworkInterface } from 'apollo-client';
+import { ApolloProvider } from 'react-apollo';
+
 import RootNavigation from './navigation/RootNavigation';
 
 export default class App extends React.Component {
   state = {
     assetsAreLoaded: false,
   };
+
+  const networkInterface = createNetworkInterface({
+    uri: 'https://api.graph.cool/simple/v1/cj6wx7ujx00go0187jjw7uszo'
+  });
+
+  const client = new ApolloClient({
+    networkInterface
+  });
 
   componentWillMount() {
     this._loadAssetsAsync();
@@ -18,12 +29,14 @@ export default class App extends React.Component {
       return <AppLoading />;
     } else {
       return (
-        <View style={{ flex: 1, backgroundColor: '#fff' }}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          {Platform.OS === 'android' &&
-            <View style={{ height: 24, backgroundColor: 'rgba(0,0,0,0.2)' }} />}
-          <RootNavigation />
-        </View>
+        <ApolloProvider client={client}>
+          <View style={{ flex: 1, backgroundColor: '#fff' }}>
+            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+            {Platform.OS === 'android' &&
+              <View style={{ height: 24, backgroundColor: 'rgba(0,0,0,0.2)' }} />}
+            <RootNavigation />
+          </View>
+        </ApolloProvider>
       );
     }
   }
