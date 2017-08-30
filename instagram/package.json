@@ -1,33 +1,27 @@
 {
-  "name": "Instagram",
-  "version": "0.0.1",
-  "description": "Instagram Clone with graphql",
-  "author": null,
-  "license": "",
-  "main": "node_modules/expo/AppEntry.js",
+  "name": "react-native-apollo-instagram-example",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "jest-expo": "^0.3.0",
+    "react-native-scripts": "0.0.27",
+    "react-test-renderer": "~15.4.1"
+  },
+  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
-    "test": "node ./node_modules/jest/bin/jest.js --watch"
+    "start": "react-native-scripts start",
+    "eject": "react-native-scripts eject",
+    "android": "react-native-scripts android",
+    "ios": "react-native-scripts ios",
+    "test": "node node_modules/jest/bin/jest.js --watch"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/samples": "^2.0.2",
-    "apollo-client": "^1.9.1",
-    "expo": "^20.0.0",
-    "graphql-tag": "^2.4.2",
-    "react": "16.0.0-alpha.12",
-    "react-apollo": "^1.4.15",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-20.0.0.tar.gz",
-    "react-navigation": "^1.0.0-beta.12"
-  },
-  "devDependencies": {
-    "eslint": "^4.5.0",
-    "eslint-config-expo": "^6.0.0",
-    "jest-expo": "^20.0.0",
-    "prettier": "^1.6.0"
-  },
-  "eslintConfig": {
-    "extends": "expo/native"
+    "expo": "^15.1.0",
+    "react": "~15.4.0",
+    "react-apollo": "^1.2.0",
+    "react-native": "0.42.3"
   }
 }
