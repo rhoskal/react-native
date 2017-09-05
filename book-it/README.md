@@ -1,4 +1,6 @@
 # Apollo + Graphcool Subscription Book App
 
-Clone app:
-> git clone https://github.com/dabit3/apollo-subscriptions-book-club.git
+> Cloned app from https://github.com/dabit3/apollo-subscriptions-book-club.git
+
+[AddBook](.screenshots/AddBook.png)
+[BookList](.screenshots/BookList.png)
