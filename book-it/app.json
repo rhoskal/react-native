@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "book-it",
+    "description": "No description",
+    "slug": "book-it",
+    "privacy": "public",
+    "sdkVersion": "20.0.0",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "primaryColor": "#cccccc",
+    "icon": "./assets/icons/books-icon.png",
+    "loading": {
+      "icon": "./assets/icons/books-icon.png",
+      "hideExponentText": false
+    },
+    "packagerOpts": {
+      "assetExts": ["ttf"]
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}
