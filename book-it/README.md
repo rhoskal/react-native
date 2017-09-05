@@ -4,3 +4,5 @@
 
 ![AddBook](.screenshots/AddBook.png?raw=true "AddBook")
 ![BookList](.screenshots/BookList.png?raw=true "BookList")
+| ![AddBook](.screenshots/AddBook.png?raw=true "AddBook") | ![BookList](.screenshots/BookList.png?raw=true "BookList") |
+|---------------------------------------------------------|------------------------------------------------------------|
