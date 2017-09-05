@@ -31,8 +31,8 @@ class AddBookScreen extends React.Component {
   addBook = () => {
     const { image, title, author, description, rating } = this.state.book;
 
-    try {
-      this.props.addBookMutation({
+    this.props
+      .addBookMutation({
         variables: {
           image,
           title,
@@ -44,12 +44,9 @@ class AddBookScreen extends React.Component {
       .then(response => {
         this.setState(defaultState);
       })
-      .catch(err => {
-        console.log('err:', err);
+      .catch(error => {
+        console.log('Error:', error);
       });
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   render() {
@@ -103,13 +100,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: Colors.gray,
-    paddingTop: 30,
-    justifyContent: 'center',
   },
   logo: {
     alignSelf: 'center',
     maxHeight: 45,
-    marginBottom: 25,
+    marginVertical: 25,
     width: 200,
   },
 });

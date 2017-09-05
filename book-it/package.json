@@ -12,7 +12,6 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/samples": "^2.0.2",
     "apollo-client": "^1.9.2",
     "expo": "^20.0.0",
     "graphql-tag": "^2.4.2",
@@ -21,10 +20,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-20.0.0.tar.gz",
     "react-native-platform-touchable": "^1.1.1",
     "react-navigation": "^1.0.0-beta.12",
-    "react-redux": "^5.0.6",
-    "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0",
     "subscriptions-transport-ws": "^0.8.2"
   },
   "devDependencies": {

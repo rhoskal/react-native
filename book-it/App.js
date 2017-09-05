@@ -6,7 +6,6 @@ import { AppLoading, Asset, Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 
 import RootNavigation from './navigation/RootNavigation';
-import store from './state/store';
 
 const projectId = 'cj76e1mfz1i6h01333ucgvmqv';
 const wsClient = new SubscriptionClient(`wss://subscriptions.graph.cool/v1/${projectId}`, {
@@ -33,7 +32,7 @@ export default class App extends React.Component {
       return <AppLoading />;
     } else {
       return (
-        <ApolloProvider store={store} client={client}>
+        <ApolloProvider client={client}>
           <View style={{ flex: 1, backgroundColor: '#fff' }}>
             {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
             {Platform.OS === 'android' && (

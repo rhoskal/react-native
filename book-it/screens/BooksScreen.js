@@ -12,25 +12,27 @@ class BooksScreen extends React.Component {
     headerTitle: <Header />,
   };
 
+  componentWillMount() {
+    this._subscribeToNewBooks();
+  }
+
   _subscribeToNewBooks = () => {
     this.props.allBooksQuery.subscribeToMore({
       document: BOOKS_SUBSCRIPTION,
       updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData) {
+        console.log(subscriptionData);
+        if (!subscriptionData.data) {
           return prev;
         }
         const { node } = subscriptionData.data.Book;
+        console.log(node);
         return {
           ...prev,
-          allBooksQuery: [...prev.allBooksQuery, node],
+          allBooks: [...prev.allBooks, node],
         };
       },
     });
   };
-
-  componentWillMount() {
-    this._subscribeToNewBooks();
-  }
 
   _keyExtractor = (item, index) => item.id;
 
@@ -43,7 +45,7 @@ class BooksScreen extends React.Component {
         <View>
           <MonoText>{item.title}</MonoText>
         </View>
-        <View style={styles.listItemIcon}>
+        <View style={{ marginRight: 15 }}>
           <Ionicons name="ios-arrow-forward" size={22} color="#ccc" />
         </View>
       </View>
@@ -63,11 +65,11 @@ class BooksScreen extends React.Component {
       <ScrollView style={styles.container}>
         {loading && <ActivityIndicator size="large" style={{ marginTop: 250 }} />}
         {
-          <FlatList
-            data={books}
-            keyExtractor={this._keyExtractor}
-            renderItem={this._renderItem}
-          />
+          books.map((book, index) => {
+            return (
+              <MonoText>*{book.title}</MonoText>
+            )
+          })
         }
       </ScrollView>
     );
@@ -87,7 +89,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#B0B0B0',
   },
-  listItemIcon: {
-    marginRight: 15,
-  },
 });
+
+// {<FlatList data={books} extraData={this._subscribeToNewBooks} keyExtractor={this._keyExtractor} renderItem={this._renderItem} />}

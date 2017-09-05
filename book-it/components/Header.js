@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
   logo: {
     maxHeight: 36,
     width: 140,
-    // alignItems: 'center',
+    marginVertical: 20,
+    alignItems: 'center',
   },
 });
