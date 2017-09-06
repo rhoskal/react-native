@@ -4,4 +4,4 @@
 Cloned app from https://github.com/dabit3/apollo-subscriptions-book-club.git
 ```
 
-![AllScreens](.screenshots/AllScreens.png?raw=true "AllScreens" =400x200)
+![AllScreens](.screenshots/AllScreens.png =400x200)
