@@ -7,6 +7,8 @@ import {
   View,
 } from 'react-native';
 
+import { Colors, Images } from '../constants';
+
 class HomeScreen extends React.Component {
   render() {
     return (
@@ -16,11 +18,7 @@ class HomeScreen extends React.Component {
           contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
+              source={ __DEV__ ? {Images.dev} : {Images.prod}}
               style={styles.welcomeImage}
             />
           </View>
