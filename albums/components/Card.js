@@ -1,12 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-// functional component
-const Card = ((props) =>
-  <View style={styles.viewStyle}>
-    { props.children }
-  </View>
-);
+const Card = props => {
+  return <View style={styles.viewStyle}>{props.children}</View>;
+};
 
 export default Card;
 
@@ -21,8 +18,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 1,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 10
-  }
+    marginHorizontal: 5,
+    marginTop: 10,
+  },
 });

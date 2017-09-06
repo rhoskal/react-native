@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default class Header extends React.Component {
+export default class Header extends React.PureComponent {
   render() {
     return (
       <View style={styles.viewStyle}>
-        <Text style={styles.textStyle}>{ this.props.headerText }</Text>
+        <Text style={styles.textStyle}>{this.props.headerText}</Text>
       </View>
     );
   }
@@ -13,9 +13,8 @@ export default class Header extends React.Component {
 
 const styles = StyleSheet.create({
   textStyle: {
-    fontSize: 20
+    fontSize: 20,
   },
-
   viewStyle: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -26,6 +25,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     elevation: 2,
-    position: 'relative'
-  }
+    position: 'relative',
+  },
 });

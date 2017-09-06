@@ -7,11 +7,16 @@
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
     "axios": "^0.16.2",
-    "expo": "^19.0.0",
+    "expo": "^20.0.0",
     "react": "16.0.0-alpha.12",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-19.0.0.tar.gz"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-20.0.0.tar.gz"
   },
   "devDependencies": {
-    "eslint-config-rallycoding": "^3.2.0"
+    "eslint": "^4.6.1",
+    "eslint-config-expo": "^6.0.0",
+    "prettier": "^1.6.1"
+  },
+  "eslintConfig": {
+    "extends": "expo/native"
   }
 }
