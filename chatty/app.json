@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "chatty",
-    "description": "No description",
+    "name": "Chatty",
+    "description": "What's App clone app",
     "slug": "chatty",
     "privacy": "public",
     "sdkVersion": "20.0.0",
