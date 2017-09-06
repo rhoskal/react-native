@@ -1,7 +1,7 @@
 # Apollo + Graphcool Subscription Book App
 
 ## Screenshots
-![AllScreens](.screenshots/AllScreens.jpg "AllScreens")
+![AllScreens](.screenshots/combined_screenshot.jpg)
 
 ## Source
 ```
