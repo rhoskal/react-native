@@ -5,13 +5,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { graphql } from 'react-apollo';
 
 import { Header, MonoText } from '../components';
+import { Layout } from '../constants';
 import { ALL_BOOKS_QUERY, BOOKS_SUBSCRIPTION } from '../api/graphcool';
 
 class BooksScreen extends React.Component {
-  static navigationOptions = {
-    headerTitle: <Header />,
-  };
-
   componentWillMount() {
     this._subscribeToNewBooks();
   }
@@ -20,12 +17,10 @@ class BooksScreen extends React.Component {
     this.props.allBooksQuery.subscribeToMore({
       document: BOOKS_SUBSCRIPTION,
       updateQuery: (prev, { subscriptionData }) => {
-        console.log(subscriptionData);
         if (!subscriptionData.data) {
           return prev;
         }
         const { node } = subscriptionData.data.Book;
-        console.log(node);
         return {
           ...prev,
           allBooks: [...prev.allBooks, node],
@@ -42,8 +37,8 @@ class BooksScreen extends React.Component {
       style={styles.listItem}
       onPress={() => this.props.navigation.navigate('Book', { item })}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <View>
-          <MonoText>{item.title}</MonoText>
+        <View style={{ width: Layout.window.width * 0.8 }}>
+          <MonoText numberOfLines={1}>{item.title}</MonoText>
         </View>
         <View style={{ marginRight: 15 }}>
           <Ionicons name="ios-arrow-forward" size={22} color="#ccc" />
@@ -56,7 +51,6 @@ class BooksScreen extends React.Component {
     const { loading } = this.props.allBooksQuery;
     let books = [];
 
-    console.log(this.props.allBooksQuery);
     if (this.props.allBooksQuery.allBooks) {
       books = this.props.allBooksQuery.allBooks;
     }
@@ -64,17 +58,15 @@ class BooksScreen extends React.Component {
     return (
       <ScrollView style={styles.container}>
         {loading && <ActivityIndicator size="large" style={{ marginTop: 250 }} />}
-        {
-          books.map((book, index) => {
-            return (
-              <MonoText>*{book.title}</MonoText>
-            )
-          })
-        }
+        {<FlatList data={books} renderItem={this._renderItem} keyExtractor={this._keyExtractor} />}
       </ScrollView>
     );
   }
 }
+
+BooksScreen.navigationOptions = {
+  headerTitle: <Header />,
+};
 
 export default graphql(ALL_BOOKS_QUERY, { name: 'allBooksQuery' })(BooksScreen);
 
@@ -90,5 +82,3 @@ const styles = StyleSheet.create({
     borderBottomColor: '#B0B0B0',
   },
 });
-
-// {<FlatList data={books} extraData={this._subscribeToNewBooks} keyExtractor={this._keyExtractor} renderItem={this._renderItem} />}
