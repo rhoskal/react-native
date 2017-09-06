@@ -1,9 +1,9 @@
 {
-  "name": "chatty",
+  "name": "Chatty",
   "version": "0.0.0",
-  "description": "Hello Expo!",
+  "description": "What's App clone app",
   "author": null,
-  "license": "",
+  "license": "MIT",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "test": "node ./node_modules/jest/bin/jest.js --watch"
@@ -12,13 +12,23 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/samples": "^2.0.2",
+    "apollo-client": "^1.9.2",
     "expo": "^20.0.0",
+    "graphql-tag": "^2.4.2",
     "react": "16.0.0-alpha.12",
+    "react-apollo": "^1.4.15",
     "react-native": "https://github.com/expo/react-native/archive/sdk-20.0.0.tar.gz",
-    "react-navigation": "^1.0.0-beta.12"
+    "react-navigation": "^1.0.0-beta.12",
+    "redux-logger": "^3.0.6",
+    "subscriptions-transport-ws": "^0.8.2"
   },
   "devDependencies": {
-    "jest-expo": "^20.0.0"
+    "eslint": "^4.6.1",
+    "eslint-config-expo": "^6.0.0",
+    "jest-expo": "^20.0.0",
+    "prettier": "^1.6.1"
+  },
+  "eslintConfig": {
+    "extends": "expo/native"
   }
 }
