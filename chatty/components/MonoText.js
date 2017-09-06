@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-export class MonoText extends React.Component {
+class MonoText extends React.PureComponent {
   render() {
     return (
       <Text
@@ -11,3 +11,5 @@ export class MonoText extends React.Component {
     );
   }
 }
+
+export default MonoText;
