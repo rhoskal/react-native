@@ -16,6 +16,5 @@ const styles = StyleSheet.create({
     maxHeight: 36,
     width: 140,
     marginVertical: 20,
-    alignItems: 'center',
   },
 });
