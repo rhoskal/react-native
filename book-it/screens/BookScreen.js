@@ -6,12 +6,7 @@ import { Layout } from '../constants';
 
 const Field = ({ name, value }) => <MonoText style={styles.field}>{`${name}: ${value}`}</MonoText>;
 
-class BookScreen extends React.Component {
-  static navigationOptions = props => {
-    const { title } = props.navigation.state.params.item;
-    return title;
-  };
-
+class BookScreen extends React.PureComponent {
   render() {
     const { image, author, title, description, rating } = this.props.navigation.state.params.item;
 
@@ -27,6 +22,11 @@ class BookScreen extends React.Component {
   }
 }
 
+BookScreen.navigationOptions = props => {
+  const { title } = props.navigation.state.params.item;
+  return { title };
+};
+
 export default BookScreen;
 
 const styles = StyleSheet.create({
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   image: {
-    height: 200,
+    height: 250,
     width: Layout.window.width,
     marginBottom: 20,
   },
