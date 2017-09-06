@@ -1,7 +1,7 @@
 # App from Udemy.com course
 
 ## Screenshots
-![Screenshot](.screenshots/screenshot.png)
+![Screenshot](.screenshots/screenshot.png =250x400)
 
 ## Source
 ```
