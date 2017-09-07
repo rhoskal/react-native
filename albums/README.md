@@ -1,7 +1,7 @@
 # App from Udemy.com course
 
 ## Screenshots
-![Screenshot](.screenshots/screenshot.jpg)
+![Screenshot](.screenshots/screenshot.png)
 
 ## Source
 ```
