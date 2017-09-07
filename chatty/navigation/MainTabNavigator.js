@@ -3,13 +3,12 @@ import { Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 
-import Colors from '../constants';
-import { HomeScreen, LinksScreen, SettingsScreen } from '../screens';
+import { Colors } from '../constants';
+import { HomeScreen, SettingsScreen } from '../screens';
 
 export default TabNavigator(
   {
-    Home: { screen: HomeScreen },
-    Links: { screen: LinksScreen },
+    Messages: { screen: HomeScreen },
     Settings: { screen: SettingsScreen },
   },
   {
@@ -17,22 +16,17 @@ export default TabNavigator(
       tabBarIcon: ({ focused }) => {
         const { routeName } = navigation.state;
         let iconName;
-        
+
         switch (routeName) {
-          case 'Home':
+          case 'Messages':
             iconName = Platform.OS === 'ios'
-              ? `ios-information-circle${focused ? '' : '-outline'}`
-              : 'md-information-circle';
-            break;
-          case 'Links':
-            iconName = Platform.OS === 'ios'
-              ? `ios-link${focused ? '' : '-outline'}`
-              : 'md-link';
+              ? `ios-chatboxes${focused ? '' : '-outline'}`
+              : 'md-chatboxes';
             break;
           case 'Settings':
             iconName = Platform.OS === 'ios'
-              ? `ios-options${focused ? '' : '-outline'}`
-              : 'md-options';
+              ? `ios-settings${focused ? '' : '-outline'}`
+              : 'md-settings';
         }
         return (
           <Ionicons

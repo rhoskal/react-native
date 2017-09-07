@@ -1,9 +1,23 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, View } from 'react-native';
 import { AppLoading, Asset, Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
+import { ApolloProvider, createNetworkInterface, ApolloClient } from 'react-apollo';
+import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
 
 import RootNavigation from './navigation/RootNavigation';
+import store from './state/store';
+
+const projectId = 'cj7aqewme0nie0103h1nzz6t9';
+const wsClient = new SubscriptionClient(`wss://subscriptions.graph.cool/v1/${projectId}`, {
+  reconnect: true,
+  connectionParams: {},
+});
+const networkInterface = createNetworkInterface({
+  uri: `https://api.graph.cool/simple/v1/${projectId}`,
+});
+const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(networkInterface, wsClient);
+const client = new ApolloClient({ networkInterface: networkInterfaceWithSubscriptions });
 
 export default class App extends React.Component {
   state = {
@@ -19,11 +33,15 @@ export default class App extends React.Component {
       return <AppLoading />;
     } else {
       return (
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
-          <RootNavigation />
-        </View>
+        <ApolloProvider client={client} store={store}>
+          <View style={{ flex: 1, backgroundColor: '#fff' }}>
+            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+            {Platform.OS === 'android' && (
+              <View style={{ height: 24, backgroundColor: 'rgba(0,0,0,0.2)' }} />
+            )}
+            <RootNavigation />
+          </View>
+        </ApolloProvider>
       );
     }
   }
@@ -31,10 +49,7 @@ export default class App extends React.Component {
   async _loadAssetsAsync() {
     try {
       await Promise.all([
-        Asset.loadAsync([
-          require('./assets/images/robot-dev.png'),
-          require('./assets/images/robot-prod.png'),
-        ]),
+        Asset.loadAsync([require('./assets/images/logo.png')]),
         Font.loadAsync([
           Ionicons.font,
           { 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf') },
@@ -51,14 +66,3 @@ export default class App extends React.Component {
     }
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  statusBarUnderlay: {
-    height: 24,
-    backgroundColor: 'rgba(0,0,0,0.2)',
-  },
-});

@@ -12,7 +12,7 @@ class SettingsScreen extends React.Component {
 }
 
 SettingsScreen.navigationOptions = {
-  title: 'app.json',
-}
+  title: 'Settings',
+};
 
 export default SettingsScreen;

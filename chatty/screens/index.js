@@ -1,5 +1,5 @@
 import HomeScreen from './HomeScreen';
-import LinksScreen from './LinksScreen';
+import LandingScreen from './LandingScreen';
 import SettingsScreen from './SettingsScreen';
 
-export { HomeScreen, LinksScreen, SettingsScreen };
+export { HomeScreen, LandingScreen, SettingsScreen };

@@ -1,26 +1,15 @@
 import React from 'react';
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 
-import { Colors, Images } from '../constants';
+import { Images } from '../constants';
 
 class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}>
+        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
-            <Image
-              source={ __DEV__ ? {Images.dev} : {Images.prod}}
-              style={styles.welcomeImage}
-            />
+            <Image source={__DEV__ ? Images.dev : Images.prod} style={styles.welcomeImage} />
           </View>
         </ScrollView>
       </View>
@@ -29,7 +18,7 @@ class HomeScreen extends React.Component {
 }
 
 HomeScreen.navigationOptions = {
-  header: null,
+  title: 'Messages',
 };
 
 export default HomeScreen;
