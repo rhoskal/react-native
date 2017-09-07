@@ -2,7 +2,7 @@ import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-const metrics = {
+const layout = {
   smallMargin: 5,
   borderRadius: 5,
   baseMargin: 10,
@@ -11,4 +11,4 @@ const metrics = {
   screenHeight: width < height ? height : width,
 };
 
-export default metrics;
+export default layout;

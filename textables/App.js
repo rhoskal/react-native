@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
-import TextablesList from './src/Components/TextablesList';
-import styles from './src/Themes/ApplicationStyles';
+import { TextablesList } from './components';
+import { Colors } from './constants';
 
-export default class App extends Component {
+export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
@@ -13,3 +13,10 @@ export default class App extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.teal,
+  },
+});

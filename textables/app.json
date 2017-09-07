@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "textables",
-    "description": "Clone of Textables App by OTGApps",
+    "name": "Textables",
+    "description": "Textables Clone",
     "slug": "textables",
     "privacy": "public",
-    "sdkVersion": "19.0.0",
+    "sdkVersion": "20.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
