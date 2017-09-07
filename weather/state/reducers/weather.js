@@ -1,8 +1,4 @@
-import {
-  CITY_CHANGED,
-  TEMP_CHANGED,
-  WEATHER_CHANGED,
-} from '../Actions/Types';
+import { CITY_CHANGED, TEMP_CHANGED, WEATHER_CHANGED } from '../actions/types';
 
 const INITIAL_STATE = {
   city: 'Unknown',
@@ -11,7 +7,6 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(action);
   switch (action.type) {
     case CITY_CHANGED:
       return { ...state, city: action.payload };

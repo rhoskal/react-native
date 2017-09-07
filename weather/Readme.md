@@ -1,11 +1,14 @@
-## Links for project
-- [github project](https://github.com/JustinNothling/react-native-fuckingWeather)
-- [online class](http://cloneable.io/)
-- [app cloned](https://itunes.apple.com/us/app/authentic-weather/id649202100)
+# Expo Redux Weather App
 
-## Built With
-- React Native
-- Expo
+## Screenshots
+![Screenshot](.screenshots/screenshot.jpg)
+
+## Source
+```
+Cloned app from https://itunes.apple.com/us/app/authentic-weather/id649202100
+Class website: http://cloneable.io/
+Github code: https://github.com/JustinNothling/react-native-fuckingWeather
+```
 
 ## License
-This project is licensed under the MIT License
+MIT

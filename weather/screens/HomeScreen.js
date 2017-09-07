@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Location, Permissions } from 'expo';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Highlight from 'react-native-highlight-words';
 
-import { Colors, styles } from '../Themes';
-import icons from '../Fixtures/Icons.json';
-import { fetchWeatherData } from '../Actions';
-import phrases from '../Fixtures/Phrases';
+import { Colors, Fonts, Layout } from '../constants';
+import icons from '../fixtures/icons.json';
+import phrases from '../fixtures/phrases';
+import { fetchWeatherData } from '../state/actions';
 
-class Screen extends Component {
+class Screen extends React.Component {
   componentDidMount() {
     this._getLocationAsync();
   }
@@ -22,7 +22,7 @@ class Screen extends Component {
 
     const location = await Location.getCurrentPositionAsync({ enableHighAccuracy: true });
     this.props.fetchWeatherData(location.coords.latitude, location.coords.longitude);
-  }
+  };
 
   render() {
     return (
@@ -31,8 +31,8 @@ class Screen extends Component {
           <Icon name={icons[this.props.weather]} size={100} color={Colors.white} />
 
           <View style={styles.info}>
-            <Text style={styles.temp}>{ this.props.temp }˚</Text>
-            <Text style={styles.subtitle}>{ this.props.city }</Text>
+            <Text style={styles.temp}>{this.props.temp}˚</Text>
+            <Text style={styles.subtitle}>{this.props.city}</Text>
           </View>
         </View>
 
@@ -43,7 +43,7 @@ class Screen extends Component {
             searchWords={[phrases[this.props.weather].highlight]}
             textToHighlight={phrases[this.props.weather].title}
           />
-          <Text style={styles.subtitle}>{ phrases[this.props.weather].subtitle }</Text>
+          <Text style={styles.subtitle}>{phrases[this.props.weather].subtitle}</Text>
         </View>
       </View>
     );
@@ -57,3 +57,43 @@ const mapStateToProps = ({ data }) => {
 };
 
 export default connect(mapStateToProps, { fetchWeatherData })(Screen);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.gold,
+  },
+  body: {
+    flex: 6,
+    justifyContent: 'flex-end',
+    margin: Layout.mediumMargin,
+  },
+  header: {
+    flex: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingTop: Layout.mediumMargin,
+  },
+  info: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  temp: {
+    fontSize: Fonts.size.h2,
+    fontFamily: Fonts.type.bold,
+    color: Colors.white,
+  },
+  title: {
+    marginBottom: Layout.smallMargin,
+    fontSize: Fonts.size.h1,
+    fontFamily: Fonts.type.bold,
+    color: Colors.white,
+  },
+  subtitle: {
+    fontSize: Fonts.size.regular,
+    fontFamily: Fonts.type.medium,
+    color: Colors.white,
+  },
+});

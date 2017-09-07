@@ -1,7 +1,7 @@
-const metrics = {
+const layout = {
   smallMargin: 5,
   mediumMargin: 10,
   largeMargin: 15,
 };
 
-export default metrics;
+export default layout;
