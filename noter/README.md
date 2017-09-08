@@ -1,7 +1,7 @@
 # Redux Todo App
 
 ## Screenshots
-![AllScreens](.screenshots/screenshot.jpg)
+![AllScreens](.screenshots/screenshot.png)
 
 ## Source
 ```
