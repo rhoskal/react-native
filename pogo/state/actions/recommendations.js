@@ -48,9 +48,9 @@ export const fetchVenues = ({ latitude, longitude }, lookingFor) => {
   return dispatch => {
     axios
       .get(`${FOURSQUARE_ENDPOINT}?${query}`)
-      .then(response => console.log(response.data.response.groups[0].items))
+      // .then(response => console.log(response.data.response.groups[0].items))
       // .then(response => fetchRequestSuccess(response.data.response.groups[0].items))
-      // .then(response => dispatch({ type: FETCH_REQUEST_SUCCESS, payload: response.data.response.groups[0].items }))
+      .then(response => dispatch({ type: FETCH_REQUEST_SUCCESS, payload: response.data.response.groups[0].items }))
       // .then(response => fetchRequestSuccess(response.data.response.groups[0].items))
       .catch(error => fetchRequestFailure(error));
   };

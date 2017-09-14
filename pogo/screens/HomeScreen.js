@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 import { Location, MapView, Permissions } from 'expo';
 import { connect } from 'react-redux';
 
@@ -64,8 +64,6 @@ class HomeScreen extends React.Component {
             strokeColor="rgba(66, 180, 230, 1)"
             fillColor="rgba(66, 180, 230, 1)"
           />
-          // {this.props.venues.map(r => <Recommendation {...r} key={r.venue.id} />)}
-          {this.props.venues.map(r => console.log('here'))}
         </MapView>
       );
     }
@@ -90,3 +88,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+    // this.props.venues.map(r => <Recommendation {...r} />);

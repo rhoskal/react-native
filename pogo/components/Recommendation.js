@@ -5,17 +5,18 @@ import { MapView } from 'expo';
 class Recommendation extends React.PureComponent {
   render() {
     return (
-      <MapView.Marker coordinate={{ latitude: this.props.r.location.lat, longitude: this.props.r.location.lon }}>
-        <MapView.Callout>
-          <View>
-            <Image source={{ uri: 'photo' }} />
-            <View>
+
+      // <MapView.Marker coordinate={{ latitude: this.props.r.location.lat, longitude: this.props.r.location.lon }}>
+      //   <MapView.Callout>
+      //     <View>
+      //       <Image source={{ uri: 'photo' }} />
+      //       <View>
               <Text>Subtitle</Text>
-              <Text>Caption</Text>
-            </View>
-          </View>
-        </MapView.Callout>
-      </MapView.Marker>
+      //         <Text>Caption</Text>
+      //       </View>
+      //     </View>
+      //   </MapView.Callout>
+      // </MapView.Marker>
     );
   }
 }
