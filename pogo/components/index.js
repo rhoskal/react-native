@@ -1,3 +1,4 @@
-import RecommendationsMap from './RecommendationsMap';
+import OverlayTopics from './OverlayTopics';
+import Recommendation from './Recommendation';
 
-export { RecommendationsMap };
+export { OverlayTopics, Recommendation };

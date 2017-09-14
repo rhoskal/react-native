@@ -1,9 +1,10 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text } from 'react-native';
 import { Location, MapView, Permissions } from 'expo';
 import { connect } from 'react-redux';
 
-import { updateLocation } from '../state/actions';
+import { OverlayTopics, Recommendation } from '../components';
+import { fetchVenues, updateLocation } from '../state/actions';
 
 class HomeScreen extends React.Component {
   state = {
@@ -29,35 +30,63 @@ class HomeScreen extends React.Component {
 
   render() {
     if (this.state.gettingCurrentLocation) {
-      return <ActivityIndicator size="large" />;
+      return <ActivityIndicator style={styles.activityIndicator} size="large" />;
     } else {
+      const { latitude, longitude } = this.props.location.coords;
+      this.props.fetchVenues({ latitude, longitude }, 'food');
+
       return (
         <MapView
           style={styles.container}
           initialRegion={{
-            latitude: this.props.location.coords.latitude,
-            longitude: this.props.location.coords.longitude,
+            latitude,
+            longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
-          }}
-        />
+          }}>
+          <MapView.Circle
+            center={{
+              latitude,
+              longitude,
+            }}
+            radius={150}
+            strokeWidth={0.5}
+            strokeColor="rgba(66, 180, 230, 1)"
+            fillColor="rgba(66, 180, 230, 0.2)"
+          />
+          <MapView.Circle
+            center={{
+              latitude,
+              longitude,
+            }}
+            radius={75}
+            strokeWidth={0.5}
+            strokeColor="rgba(66, 180, 230, 1)"
+            fillColor="rgba(66, 180, 230, 1)"
+          />
+          // {this.props.venues.map(r => <Recommendation {...r} key={r.venue.id} />)}
+          {this.props.venues.map(r => console.log('here'))}
+        </MapView>
       );
     }
   }
 }
 
 const mapStateToProps = ({ recommendations }) => {
-  const { location } = recommendations;
+  const { location, venues } = recommendations;
 
-  return { location };
+  return { location, venues };
 };
 
-export default connect(mapStateToProps, { updateLocation })(HomeScreen);
+export default connect(mapStateToProps, { updateLocation, fetchVenues })(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+  },
+  activityIndicator: {
+    flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });

@@ -6,36 +6,32 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  recommendations: [],
+  venues: [],
   isFetching: false,
   location: {},
+  lookingFor: 'food',
+  last4sqCall: null,
+  error: '',
 };
-
-// state = {
-//   mapRegion: null,
-//   gpsAccuracy: null,
-//   recommendations: [],
-//   lookingFor: null,
-//   headerLocation: null,
-//   last4sqrCall: null,
-// };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_REQUEST:
       return {
         ...state,
-        isFetching: action.payload,
+        isFetching: true,
       };
     case FETCH_REQUEST_SUCCESS:
       return {
         ...state,
-        temp: action.payload,
+        venues: [...state.venues, action.payload],
+        isFetching: false,
       };
     case FETCH_REQUEST_FAILURE:
       return {
         ...state,
-        weather: action.payload,
+        isFetching: false,
+        error: action.payload,
       };
     case UPDATE_LOCATION:
       return {
