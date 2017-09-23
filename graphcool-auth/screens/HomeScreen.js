@@ -39,6 +39,21 @@ class HomeScreen extends React.Component {
     this.setState({ modalVisible: true });
   };
 
+  _deleteLift(id) {
+    console.log(`deleting lift: ${id}...`);
+    this.props
+      .deleteLiftMutation({
+        variables: { id },
+      })
+      .then(result => {
+        // this.props.allLiftsQuery.refetch() & set redux state?;
+        console.log('refetch && update state');
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
   _keyExtractor = (item, index) => item.id;
 
   _renderItem = ({ item }) => (
@@ -52,12 +67,20 @@ class HomeScreen extends React.Component {
         </TouchableOpacity>,
       ]}
       rightButtons={[
-        <TouchableOpacity style={styles.swipableDelete} onPress={() => console.log('delete')}>
+        <TouchableOpacity style={styles.swipableDelete} onPress={() => this._deleteLift(item.id)}>
           <Ionicons name={Platform.OS === 'ios' ? 'ios-trash-outline' : 'md-trash'} size={28} />
         </TouchableOpacity>,
       ]}>
       <View style={styles.card}>
-        <Text>{`${item.movement}, ${item.weight}, ${moment(item.createdAt, moment.ISO_8601).format('MM/DD/YYYY')}`}</Text>
+        <View style={styles.movementColumn}>
+          <Text>{item.movement}</Text>
+        </View>
+        <View style={styles.weightColumn}>
+          <Text>{item.weight}</Text>
+        </View>
+        <View style={styles.dateColumn}>
+          <Text>{moment(item.createdAt, moment.ISO_8601).format('MM/DD/YYYY')}</Text>
+        </View>
       </View>
     </Swipeable>
   );
@@ -94,7 +117,19 @@ class HomeScreen extends React.Component {
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
           ListEmptyComponent={<Text>Hey Hans! You have 0 lifts in our database.</Text>}
-          ListHeaderComponent={<Text>Movement, Weight, Date</Text>}
+          ListHeaderComponent={
+            <View style={styles.labelRow}>
+              <View style={styles.movementColumn}>
+                <Text>Movement</Text>
+              </View>
+              <View style={styles.weightColumn}>
+                <Text>Weight</Text>
+              </View>
+              <View style={styles.dateColumn}>
+                <Text>Date</Text>
+              </View>
+            </View>
+          }
         />
       </View>
     );
@@ -151,5 +186,21 @@ const styles = StyleSheet.create({
     height: 55,
     justifyContent: 'center',
     paddingLeft: 28,
+  },
+  labelRow: {
+    flexDirection: 'row',
+    backgroundColor: '#D3D3D3',
+  },
+  movementColumn: {
+    justifyContent: 'flex-start',
+    width: width * 0.4,
+  },
+  weightColumn: {
+    justifyContent: 'center',
+    width: width * 0.3,
+  },
+  dateColumn: {
+    justifyContent: 'flex-end',
+    width: width * 0.3,
   },
 });
