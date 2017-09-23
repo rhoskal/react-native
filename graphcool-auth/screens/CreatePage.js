@@ -1,14 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { graphql, gql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 
-const CREATE_LIFT_MUTATION = gql`
-  mutation($movement: String!, $weight: Float!) {
-    createLift(movement: $movement, weight: $weight) {
-      id
-    }
-  }
-`;
+import { CREATE_LIFT_MUTATION } from '../api/graphcool';
 
 class CreatePage extends React.Component {
   constructor(props) {
