@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { AppLoading, Font } from 'expo';
 import { ApolloProvider, createNetworkInterface, ApolloClient } from 'react-apollo';
 
@@ -48,7 +48,7 @@ export default class App extends React.Component {
     } else {
       return (
         <ApolloProvider client={client}>
-          <View style={styles.container}>
+          <View style={{ flex: 1 }}>
             <RootNavigation />
           </View>
         </ApolloProvider>
@@ -56,9 +56,3 @@ export default class App extends React.Component {
     }
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

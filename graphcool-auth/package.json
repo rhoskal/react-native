@@ -9,6 +9,7 @@
     "apollo-client": "^1.9.3",
     "expo": "^21.0.0",
     "graphql-tag": "^2.4.2",
+    "moment": "^2.18.1",
     "native-base": "^2.3.2",
     "react": "16.0.0-alpha.12",
     "react-apollo": "^1.4.15",
