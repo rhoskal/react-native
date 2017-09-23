@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   ActivityIndicator,
+  Dimensions,
   FlatList,
   Modal,
   Platform,
@@ -11,10 +12,13 @@ import {
 } from 'react-native';
 import { compose, graphql } from 'react-apollo';
 import { Ionicons } from '@expo/vector-icons';
+import Swipeable from 'react-native-swipeable';
 import moment from 'moment';
 
 import { CreatePage } from '../screens';
 import { ALL_LIFTS_QUERY, DELETE_LIFT_MUTATION } from '../api/graphcool';
+
+const { width } = Dimensions.get('window');
 
 class HomeScreen extends React.Component {
   constructor(props) {
@@ -38,7 +42,24 @@ class HomeScreen extends React.Component {
   _keyExtractor = (item, index) => item.id;
 
   _renderItem = ({ item }) => (
-    <Text>{`${item.movement}, ${item.weight}, ${moment(item.createdAt, moment.ISO_8601).format('MM/DD/YYYY')}`}</Text>
+    <Swipeable
+      leftButtons={[
+        <TouchableOpacity style={styles.swipableEdit} onPress={() => console.log('edit')}>
+          <Ionicons
+            name={Platform.OS === 'ios' ? 'ios-clipboard-outline' : 'md-clipboard'}
+            size={28}
+          />
+        </TouchableOpacity>,
+      ]}
+      rightButtons={[
+        <TouchableOpacity style={styles.swipableDelete} onPress={() => console.log('delete')}>
+          <Ionicons name={Platform.OS === 'ios' ? 'ios-trash-outline' : 'md-trash'} size={28} />
+        </TouchableOpacity>,
+      ]}>
+      <View style={styles.card}>
+        <Text>{`${item.movement}, ${item.weight}, ${moment(item.createdAt, moment.ISO_8601).format('MM/DD/YYYY')}`}</Text>
+      </View>
+    </Swipeable>
   );
 
   render() {
@@ -84,7 +105,9 @@ HomeScreen.navigationOptions = ({ navigation }) => {
   return {
     title: 'Lifts',
     headerRight: (
-      <TouchableOpacity onPress={() => navigation.state.params.submitLift()} style={{ marginRight: 15 }}>
+      <TouchableOpacity
+        onPress={() => navigation.state.params.submitLift()}
+        style={{ marginRight: 15 }}>
         <Ionicons
           name={Platform.OS === 'ios' ? 'ios-add-circle-outline' : 'md-add-circle'}
           size={28}
@@ -103,9 +126,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  card: {
+    height: 55,
+    width,
+    flexDirection: 'row',
+    backgroundColor: '#FFF',
+    alignItems: 'center',
+    paddingHorizontal: 15,
+  },
   loading: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  swipableEdit: {
+    backgroundColor: '#D3D3D3',
+    height: 55,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    paddingRight: 28,
+  },
+  swipableDelete: {
+    backgroundColor: '#FF6666',
+    height: 55,
+    justifyContent: 'center',
+    paddingLeft: 28,
   },
 });
