@@ -9,7 +9,7 @@ const RootStackNavigator = StackNavigator(
     Home: { screen: HomeScreen },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Login',
     navigationOptions: () => ({
       headerTitleStyle: {
         fontWeight: 'normal',
