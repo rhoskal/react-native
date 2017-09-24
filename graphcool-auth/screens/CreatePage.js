@@ -16,10 +16,10 @@ class CreatePage extends React.Component {
   }
 
   _submitLift = () => {
-    const { movement, weight } = this.state;
+    const { movement, units, weight } = this.state;
     this.props
       .createLiftMutation({
-        variables: { movement, weight: parseInt(weight, 10) },
+        variables: { movement, units, weight: parseInt(weight, 10) },
       })
       .then(this.props.onComplete())
       .catch(e => {
