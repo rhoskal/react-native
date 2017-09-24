@@ -43,7 +43,6 @@ class HomeScreen extends React.Component {
   };
 
   _updateLift(item) {
-    console.log('editing...');
     this.setState({ updateModalVisible: true, item });
   }
 

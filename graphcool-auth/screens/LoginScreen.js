@@ -1,29 +1,39 @@
 import React from 'react';
-import { Alert, AsyncStorage, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-import Expo from 'expo';
+import {
+  ActivityIndicator,
+  Alert,
+  AsyncStorage,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+} from 'react-native';
+import { compose, graphql } from 'react-apollo';
+import { Facebook } from 'expo';
+
+import { FACEBOOK_LOGIN_MUTATION, UPDATE_USER_MUTATION } from '../api/graphcool';
 
 class LoginScreen extends React.Component {
   _loginWithFacebookAsync = async () => {
     const APP_ID = '488637721496153';
-    const OPTIONS = {
-      permissions: ['public_profile'],
-    };
-    const { type, token, expires } = await Expo.Facebook.logInWithReadPermissionsAsync(APP_ID, OPTIONS);
+    const OPTIONS = { permissions: ['public_profile'] };
+    const { type, token } = await Facebook.logInWithReadPermissionsAsync(APP_ID, OPTIONS);
 
     switch (type) {
       case 'success': {
-        const FIELDS = ['id', 'first_name', 'last_name', 'gender'];
-        const response = await fetch(
-          `https://graph.facebook.com/me?fields=${FIELDS.toString()}&access_token=${token}`
-        );
-        const userData = await response.json();
-        const profile = {
-          first_name: userData.first_name,
-          last_name: userData.last_name,
-          gender: userData.gender,
-        };
-        //pass profile to redux
-        this.props.navigation.navigate('Home');
+        await this.props
+          .facebookLogin({
+            variables: { facebookToken: token },
+          })
+          .then(({ data }) => {
+            console.log(data.authenticateFacebookUser.token);
+            console.log(token);
+            this._storeAuthTokensLocally(data.authenticateFacebookUser.token, token);
+            this.props.navigation.navigate('Home');
+          })
+          .catch(e => {
+            console.log(e);
+          });
         break;
       }
       case 'cancel': {
@@ -33,6 +43,15 @@ class LoginScreen extends React.Component {
       default: {
         Alert.alert('Error', 'Facebook login returned error.');
       }
+    }
+  };
+
+  _storeAuthTokensLocally = async (graphcoolToken, socialLoginToken) => {
+    try {
+      await AsyncStorage.setItem('graphcoolToken', graphcoolToken);
+      await AsyncStorage.setItem('socialLoginToken', socialLoginToken);
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -51,7 +70,10 @@ LoginScreen.navigationOptions = {
   header: null,
 };
 
-export default LoginScreen;
+export default compose(
+  graphql(FACEBOOK_LOGIN_MUTATION, { name: 'facebookLogin' }),
+  graphql(UPDATE_USER_MUTATION, { name: 'updateUserMutation' })
+)(LoginScreen);
 
 const styles = StyleSheet.create({
   container: {
