@@ -13,8 +13,8 @@ export const ALL_LIFTS_QUERY = gql`
 `;
 
 export const CREATE_LIFT_MUTATION = gql`
-  mutation($movement: String!, $weight: Float!) {
-    createLift(movement: $movement, weight: $weight) {
+  mutation($movement: String!, $units: String!, $weight: Float!) {
+    createLift(movement: $movement, units: $units, weight: $weight) {
       id
     }
   }
