@@ -13,6 +13,7 @@ import {
 import { compose, graphql } from 'react-apollo';
 import { Ionicons } from '@expo/vector-icons';
 import Swipeable from 'react-native-swipeable';
+import { Constants } from 'expo';
 import moment from 'moment';
 
 import { CreatePage } from '../screens';
@@ -39,6 +40,10 @@ class HomeScreen extends React.Component {
     this.setState({ modalVisible: true });
   };
 
+  _editLift(id) {
+    console.log(`editing: ${id}`);
+  }
+
   _deleteLift(id) {
     this.props
       .deleteLiftMutation({
@@ -57,7 +62,7 @@ class HomeScreen extends React.Component {
   _renderItem = ({ item }) => (
     <Swipeable
       leftButtons={[
-        <TouchableOpacity style={styles.swipableEdit} onPress={() => console.log('edit')}>
+        <TouchableOpacity style={styles.swipableEdit} onPress={() => this._editLift(item.id)}>
           <Ionicons
             name={Platform.OS === 'ios' ? 'ios-clipboard-outline' : 'md-clipboard'}
             size={28}
@@ -137,6 +142,13 @@ class HomeScreen extends React.Component {
 HomeScreen.navigationOptions = ({ navigation }) => {
   return {
     title: 'Lifts',
+    headerStyle: {
+      ...Platform.select({
+        android: {
+          marginTop: Constants.statusBarHeight,
+        },
+      }),
+    },
     headerRight: (
       <TouchableOpacity
         onPress={() => navigation.state.params.submitLift()}
