@@ -40,14 +40,12 @@ class HomeScreen extends React.Component {
   };
 
   _deleteLift(id) {
-    console.log(`deleting lift: ${id}...`);
     this.props
       .deleteLiftMutation({
         variables: { id },
       })
       .then(result => {
-        // this.props.allLiftsQuery.refetch() & set redux state?;
-        console.log('refetch && update state');
+        this.props.allLiftsQuery.refetch();
       })
       .catch(e => {
         console.log(e);
