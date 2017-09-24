@@ -1,5 +1,6 @@
-import CreatePage from './CreatePage';
+import CreateScreen from './CreateScreen';
 import HomeScreen from './HomeScreen';
 import LoginScreen from './LoginScreen';
+import UpdateScreen from './UpdateScreen';
 
-export { CreatePage, HomeScreen, LoginScreen };
+export { CreateScreen, HomeScreen, LoginScreen, UpdateScreen };

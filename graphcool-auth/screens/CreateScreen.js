@@ -4,7 +4,7 @@ import { graphql } from 'react-apollo';
 
 import { CREATE_LIFT_MUTATION } from '../api/graphcool';
 
-class CreatePage extends React.Component {
+class CreateScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -38,11 +38,11 @@ class CreatePage extends React.Component {
   }
 }
 
-CreatePage.navigationOptions = {
+CreateScreen.navigationOptions = {
   header: null,
 };
 
-export default graphql(CREATE_LIFT_MUTATION, { name: 'createLiftMutation' })(CreatePage);
+export default graphql(CREATE_LIFT_MUTATION, { name: 'createLiftMutation' })(CreateScreen);
 
 const styles = StyleSheet.create({
   container: {

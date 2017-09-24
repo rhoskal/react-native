@@ -27,3 +27,11 @@ export const DELETE_LIFT_MUTATION = gql`
     }
   }
 `;
+
+export const UPDATE_LIFT_MUTATION = gql`
+  mutation($id: ID!, $movement: String!, $units: String!, $weight: Float!) {
+    updateLift(id: $id, movement: $movement, units: $units, weight: $weight) {
+      id
+    }
+  }
+`;

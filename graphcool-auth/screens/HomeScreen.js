@@ -16,7 +16,7 @@ import Swipeable from 'react-native-swipeable';
 import { Constants } from 'expo';
 import moment from 'moment';
 
-import { CreatePage } from '../screens';
+import { CreateScreen, UpdateScreen } from '../screens';
 import { ALL_LIFTS_QUERY, DELETE_LIFT_MUTATION } from '../api/graphcool';
 
 const { width } = Dimensions.get('window');
@@ -26,7 +26,9 @@ class HomeScreen extends React.Component {
     super(props);
 
     this.state = {
-      modalVisible: false,
+      createModalVisible: false,
+      updateModalVisible: false,
+      item: null,
     };
   }
 
@@ -37,11 +39,12 @@ class HomeScreen extends React.Component {
   }
 
   _submitLift = () => {
-    this.setState({ modalVisible: true });
+    this.setState({ createModalVisible: true });
   };
 
-  _editLift(id) {
-    console.log(`editing: ${id}`);
+  _updateLift(item) {
+    console.log('editing...');
+    this.setState({ updateModalVisible: true, item });
   }
 
   _deleteLift(id) {
@@ -62,11 +65,8 @@ class HomeScreen extends React.Component {
   _renderItem = ({ item }) => (
     <Swipeable
       leftButtons={[
-        <TouchableOpacity style={styles.swipableEdit} onPress={() => this._editLift(item.id)}>
-          <Ionicons
-            name={Platform.OS === 'ios' ? 'ios-clipboard-outline' : 'md-clipboard'}
-            size={28}
-          />
+        <TouchableOpacity style={styles.swipableEdit} onPress={() => this._updateLift(item)}>
+          <Ionicons name={Platform.OS === 'ios' ? 'ios-clipboard-outline' : 'md-clipboard'} size={28} />
         </TouchableOpacity>,
       ]}
       rightButtons={[
@@ -108,13 +108,25 @@ class HomeScreen extends React.Component {
       <View style={styles.container}>
         <Modal
           animationType="slide"
-          visible={this.state.modalVisible}
-          onRequestClose={() => this.setState({ modalVisible: false })}>
-          <CreatePage
+          visible={this.state.createModalVisible}
+          onRequestClose={() => this.setState({ createModalVisible: false })}>
+          <CreateScreen
             onComplete={() => {
               this.props.allLiftsQuery.refetch();
-              this.setState({ modalVisible: false });
+              this.setState({ createModalVisible: false });
             }}
+          />
+        </Modal>
+        <Modal
+          animationType="slide"
+          visible={this.state.updateModalVisible}
+          onRequestClose={() => this.setState({ updateModalVisible: false })}>
+          <UpdateScreen
+            onComplete={() => {
+              this.props.allLiftsQuery.refetch();
+              this.setState({ updateModalVisible: false });
+            }}
+            item={this.state.item}
           />
         </Modal>
         <FlatList
