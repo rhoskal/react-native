@@ -122,19 +122,6 @@ class HomeScreen extends React.Component {
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
           ListEmptyComponent={<Text>Hey Hans! You have 0 lifts in our database.</Text>}
-          ListHeaderComponent={
-            <View style={styles.labelRow}>
-              <View style={styles.movementColumn}>
-                <Text>Movement</Text>
-              </View>
-              <View style={styles.weightColumn}>
-                <Text>Weight</Text>
-              </View>
-              <View style={styles.dateColumn}>
-                <Text>Date</Text>
-              </View>
-            </View>
-          }
         />
       </View>
     );
