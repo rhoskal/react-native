@@ -11,11 +11,11 @@ class CreatePage extends React.Component {
     this.state = {
       movement: 'Snatch',
       weight: '456',
+      units: 'kg',
     };
   }
 
   _submitLift = () => {
-    console.log('adding lift');
     const { movement, weight } = this.state;
     this.props
       .createLiftMutation({

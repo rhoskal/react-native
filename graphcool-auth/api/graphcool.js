@@ -6,6 +6,7 @@ export const ALL_LIFTS_QUERY = gql`
       id
       createdAt
       movement
+      units
       weight
     }
   }

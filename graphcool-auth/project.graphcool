@@ -1,5 +1,5 @@
 # project: cj6mve6ef0lqp0143fc3ia98x
-# version: 42
+# version: 45
 
 type File implements Node {
   contentType: String!
@@ -18,6 +18,8 @@ type Lift implements Node {
   movement: String!
   updatedAt: DateTime!
   weight: Float!
+  units: String!
+  user: User @relation(name: "LiftOnUser")
 }
 
 type User implements Node {
@@ -26,4 +28,5 @@ type User implements Node {
   googleUserId: String @isUnique
   id: ID! @isUnique
   updatedAt: DateTime!
+  lifts: [Lift!]! @relation(name: "LiftOnUser")
 }

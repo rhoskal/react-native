@@ -79,7 +79,9 @@ class HomeScreen extends React.Component {
           <Text>{item.movement}</Text>
         </View>
         <View style={styles.weightColumn}>
-          <Text>{item.weight}</Text>
+          <Text>
+            {item.weight} {item.units}
+          </Text>
         </View>
         <View style={styles.dateColumn}>
           <Text>{moment(item.createdAt, moment.ISO_8601).format('MM/DD/YYYY')}</Text>
@@ -200,6 +202,7 @@ const styles = StyleSheet.create({
   labelRow: {
     flexDirection: 'row',
     backgroundColor: '#D3D3D3',
+    paddingHorizontal: 15,
   },
   movementColumn: {
     justifyContent: 'flex-start',
