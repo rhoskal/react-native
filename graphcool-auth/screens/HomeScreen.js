@@ -129,7 +129,7 @@ class HomeScreen extends React.Component {
           />
         </Modal>
         <FlatList
-          data={this.props.allLiftsQuery.allLifts}
+          data={this.props.allLiftsQuery.user.lifts}
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
           ListEmptyComponent={<Text>Hey Hans! You have 0 lifts in our database.</Text>}

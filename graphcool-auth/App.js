@@ -14,10 +14,14 @@ networkInterface.use([
         req.options.headers = {};
       }
 
-      if (AsyncStorage.getItem('graphcoolToken')) {
-        req.options.headers.authorization = `Bearer ${AsyncStorage.getItem('graphcoolToken')}`;
-      }
-      next();
+      AsyncStorage.getItem('graphcoolToken')
+        .then(token => {
+          req.options.headers.authorization = `Bearer ${token}`;
+          next();
+        })
+        .catch(error => {
+          console.error(`networkInterface: ${error}`);
+        });
     },
   },
 ]);

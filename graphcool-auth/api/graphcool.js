@@ -1,13 +1,16 @@
 import { gql } from 'react-apollo';
 
 export const ALL_LIFTS_QUERY = gql`
-  query allLiftsQuery {
-    allLifts(orderBy: createdAt_DESC) {
+  query userLifts {
+    user {
       id
-      createdAt
-      movement
-      units
-      weight
+      lifts(orderBy: createdAt_DESC) {
+        id
+        createdAt
+        movement
+        weight
+        units
+      }
     }
   }
 `;
@@ -56,7 +59,7 @@ export const UPDATE_USER_MUTATION = gql`
 `;
 
 export const CURRENT_USER_QUERY = gql`
-  {
+  query currentUserQuery {
     user {
       id
       firstName
