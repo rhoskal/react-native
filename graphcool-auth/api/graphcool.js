@@ -8,16 +8,16 @@ export const ALL_LIFTS_QUERY = gql`
         id
         createdAt
         movement
-        weight
         units
+        weight
       }
     }
   }
 `;
 
 export const CREATE_LIFT_MUTATION = gql`
-  mutation createLiftMutation($movement: String!, $units: String!, $weight: Float!) {
-    createLift(movement: $movement, units: $units, weight: $weight) {
+  mutation createLiftMutation($userId: ID!, $movement: String!, $units: String!, $weight: Float!) {
+    createLift(userId: $userId, movement: $movement, units: $units, weight: $weight) {
       id
     }
   }
@@ -27,6 +27,9 @@ export const DELETE_LIFT_MUTATION = gql`
   mutation deleteLiftMutation($id: ID!) {
     deleteLift(id: $id) {
       id
+      user {
+        id
+      }
     }
   }
 `;

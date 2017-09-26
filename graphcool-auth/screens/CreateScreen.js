@@ -19,7 +19,7 @@ class CreateScreen extends React.Component {
     const { movement, units, weight } = this.state;
     this.props
       .createLiftMutation({
-        variables: { movement, units, weight: parseInt(weight, 10) },
+        variables: { userId: "cj7z60qc6kge70196uneyerf6", movement, units, weight: parseInt(weight, 10) },
       })
       .then(this.props.onComplete())
       .catch(e => {

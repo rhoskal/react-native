@@ -16,6 +16,7 @@ networkInterface.use([
 
       AsyncStorage.getItem('graphcoolToken')
         .then(token => {
+          console.log(token);
           req.options.headers.authorization = `Bearer ${token}`;
           next();
         })

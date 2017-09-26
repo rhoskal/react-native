@@ -1,5 +1,5 @@
 # project: cj6mve6ef0lqp0143fc3ia98x
-# version: 46
+# version: 69
 
 type File implements Node {
   contentType: String!
@@ -19,7 +19,7 @@ type Lift implements Node {
   updatedAt: DateTime!
   weight: Float!
   units: String!
-  user: User @relation(name: "LiftOnUser")
+  user: User @relation(name: "LiftUser")
 }
 
 type User implements Node {
@@ -27,5 +27,8 @@ type User implements Node {
   facebookUserId: String @isUnique
   id: ID! @isUnique
   updatedAt: DateTime!
-  lifts: [Lift!]! @relation(name: "LiftOnUser")
+  lifts: [Lift!]! @relation(name: "LiftUser")
+  firstName: String!
+  gender: String!
+  lastName: String!
 }
