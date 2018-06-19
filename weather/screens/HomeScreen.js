@@ -10,6 +10,46 @@ import icons from '../fixtures/icons.json';
 import phrases from '../fixtures/phrases';
 import { fetchWeatherData } from '../state/actions';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.gold,
+  },
+  body: {
+    flex: 6,
+    justifyContent: 'flex-end',
+    margin: Layout.mediumMargin,
+  },
+  header: {
+    flex: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingTop: Layout.mediumMargin,
+  },
+  info: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  temp: {
+    fontSize: Fonts.size.h2,
+    fontFamily: Fonts.type.bold,
+    color: Colors.white,
+  },
+  title: {
+    marginBottom: Layout.smallMargin,
+    fontSize: Fonts.size.h1,
+    fontFamily: Fonts.type.bold,
+    color: Colors.white,
+  },
+  subtitle: {
+    fontSize: Fonts.size.regular,
+    fontFamily: Fonts.type.medium,
+    color: Colors.white,
+  },
+});
+
 class Screen extends React.Component {
   componentDidMount() {
     this._getLocationAsync();
@@ -56,44 +96,4 @@ const mapStateToProps = ({ data }) => {
   return { city, temp, weather };
 };
 
-export default connect(mapStateToProps, { fetchWeatherData })(Screen);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.gold,
-  },
-  body: {
-    flex: 6,
-    justifyContent: 'flex-end',
-    margin: Layout.mediumMargin,
-  },
-  header: {
-    flex: 2,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingTop: Layout.mediumMargin,
-  },
-  info: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  temp: {
-    fontSize: Fonts.size.h2,
-    fontFamily: Fonts.type.bold,
-    color: Colors.white,
-  },
-  title: {
-    marginBottom: Layout.smallMargin,
-    fontSize: Fonts.size.h1,
-    fontFamily: Fonts.type.bold,
-    color: Colors.white,
-  },
-  subtitle: {
-    fontSize: Fonts.size.regular,
-    fontFamily: Fonts.type.medium,
-    color: Colors.white,
-  },
-});
+export default connect(mapStateToProps, { fetchWeatherData })(Screen); //prettier-ignore
