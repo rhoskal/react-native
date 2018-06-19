@@ -2,15 +2,6 @@ import React from 'react';
 import { Clipboard, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Colors, Layout } from '../constants';
 
-const Card = props => (
-  <TouchableOpacity style={styles.row} onPress={() => Clipboard.setString(props.art)}>
-    <Text style={styles.boldLabel}>{props.name}</Text>
-    <Text style={styles.label}>{props.art}</Text>
-  </TouchableOpacity>
-);
-
-export default Card;
-
 const styles = StyleSheet.create({
   boldLabel: {
     fontWeight: 'bold',
@@ -39,3 +30,12 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
 });
+
+const Card = props => (
+  <TouchableOpacity style={styles.row} onPress={() => Clipboard.setString(props.art)}>
+    <Text style={styles.boldLabel}>{props.name}</Text>
+    <Text style={styles.label}>{props.art}</Text>
+  </TouchableOpacity>
+);
+
+export default Card;

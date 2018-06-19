@@ -1,9 +1,34 @@
 import React from 'react';
 import { ListView, StyleSheet, Text, View } from 'react-native';
 
-import Card from './Card';
 import { Colors, Layout } from '../constants';
+import Card from './Card';
 import data from '../fixtures/textables.json';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.teal,
+  },
+  boldLabel: {
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    color: Colors.black,
+    textAlign: 'center',
+    marginBottom: Layout.smallMargin,
+  },
+  listContent: {
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  sectionHeader: {
+    paddingTop: Layout.doubleBaseMargin,
+    width: Layout.screenWidth,
+    margin: Layout.baseMargin,
+    backgroundColor: Colors.teal,
+  },
+});
 
 class TextablesList extends React.Component {
   constructor(props) {
@@ -46,28 +71,3 @@ class TextablesList extends React.Component {
 }
 
 export default TextablesList;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.teal,
-  },
-  boldLabel: {
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    color: Colors.black,
-    textAlign: 'center',
-    marginBottom: Layout.smallMargin,
-  },
-  listContent: {
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  sectionHeader: {
-    paddingTop: Layout.doubleBaseMargin,
-    width: Layout.screenWidth,
-    margin: Layout.baseMargin,
-    backgroundColor: Colors.teal,
-  },
-});
