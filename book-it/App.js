@@ -19,17 +19,23 @@ const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(networkInterfa
 const client = new ApolloClient({ networkInterface: networkInterfaceWithSubscriptions });
 
 export default class App extends React.Component {
-  state = {
-    assetsAreLoaded: false,
-  };
+  constructor(props) {
+    super(props);
 
-  componentWillMount() {
-    this._loadAssetsAsync();
+    this.state = {
+      assetsAreLoaded: false,
+    };
   }
 
   render() {
-    if (!this.state.assetsAreLoaded && !this.props.skipLoadingScreen) {
-      return <AppLoading />;
+    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+      return (
+        <AppLoading
+          startAsync={this._loadResourcesAsync}
+          onError={this._handleLoadingError}
+          onFinish={this._handleFinishLoading}
+        />
+      );
     } else {
       return (
         <ApolloProvider client={client}>
@@ -45,27 +51,26 @@ export default class App extends React.Component {
     }
   }
 
-  async _loadAssetsAsync() {
-    try {
-      await Promise.all([
-        Asset.loadAsync([
-          require('./assets/images/bookit-logo.png'),
-          require('./assets/icons/add-icon.png'),
-          require('./assets/icons/books-icon.png'),
-        ]),
-        Font.loadAsync([
-          Ionicons.font,
-          { 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf') },
-        ]),
-      ]);
-    } catch (e) {
-      console.warn(
-        'There was an error caching assets (see: App.js), perhaps due to a ' +
-          'network timeout, so we skipped caching. Reload the app to try again.'
-      );
-      console.log(e);
-    } finally {
-      this.setState({ assetsAreLoaded: true });
-    }
-  }
+  _loadResourcesAsync = async () => {
+    return Promise.all([
+      Asset.loadAsync([
+        require('./assets/images/bookit-logo.png'),
+        require('./assets/icons/add-icon.png'),
+        require('./assets/icons/books-icon.png'),
+      ]),
+      Font.loadAsync({
+        // This is the font that we are using for our tab bar
+        ...Ionicons.font,
+        'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+      }),
+    ]);
+  };
+
+  _handleLoadingError = error => {
+    console.error(error);
+  };
+
+  _handleFinishLoading = () => {
+    this.setState({ isLoadingComplete: true });
+  };
 }

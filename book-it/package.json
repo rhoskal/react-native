@@ -1,6 +1,6 @@
 {
   "name": "book-it",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Hello Expo!",
   "author": null,
   "license": "",
@@ -13,11 +13,11 @@
   },
   "dependencies": {
     "apollo-client": "^1.9.2",
-    "expo": "^20.0.0",
+    "expo": "^27.0.0",
     "graphql-tag": "^2.4.2",
-    "react": "16.0.0-alpha.12",
+    "react": "16.3.1",
     "react-apollo": "^1.4.15",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-20.0.0.tar.gz",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-27.0.0.tar.gz",
     "react-native-platform-touchable": "^1.1.1",
     "react-navigation": "^1.0.0-beta.12",
     "redux-logger": "^3.0.6",
